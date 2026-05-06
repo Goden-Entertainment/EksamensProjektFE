@@ -33,5 +33,5 @@ jobs:
           password: ${{ secrets.VM_PASSWORD }}
           script: |
             cd /home/EksamensProjekt/app
-            docker compose pull
-            docker compose up -d
+            docker-compose pull
+            docker-compose up -d
