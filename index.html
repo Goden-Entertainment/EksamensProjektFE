@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="css/calendar.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -28,6 +29,31 @@
         </div>
     </div>
 </div>
+
+<!--booking request form-->
+<!--note: id on inputs is only needed, if we use js and css. Delete it later if we find out it is not needed.-->
+<form action="/booking/create" method="post">
+
+    <label for="companyName">Virksomhed</label>
+    <input type="text" id="companyName" name="companyName" placeholder="Navn på virksomhed" required>
+
+    <label for="address">Adresse</label>
+    <input type="text" id="address" name="address" placeholder="Virksomhedens adresse" required>
+
+    <label for="email">E-mail</label>
+    <input type="email" id="email" name="email" placeholder="Eksempel@eksempel.dk" required>
+
+    <label for="guests">Antal deltagere</label>
+    <input type="number" id="guests" name="guests" min="1" placeholder="Forventet antal deltagere" required>
+
+    <label for="startDate">Start dato</label>
+    <input type="date" id="startDate" name="startDate" required>
+
+    <label for="endDate">Slut dato</label>
+    <input type="date" id="endDate" name="endDate" required>
+
+    <input type="submit" value="Send anmodning">
+</form>
 
 <script src="js/calendar.js"></script>
 </body>
