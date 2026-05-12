@@ -1,0 +1,52 @@
+Index: index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"da\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>Title</title>\r\n    <link rel=\"stylesheet\" href=\"css/calendar.css\">\r\n</head>\r\n<body>\r\n\r\n<!--Calendar-->\r\n<div class=\"calendar\">\r\n    <div class=\"calendar-header\">\r\n        <button id=\"prev-month\">‹</button>\r\n        <div id=\"month-year\"></div>\r\n        <button id=\"next-month\">›</button>\r\n    </div>\r\n    <div class=\"calendar-body\">\r\n        <div class=\"calendar-weekdays\">\r\n            <div>Man</div>\r\n            <div>Tir</div>\r\n            <div>Ons</div>\r\n            <div>Tor</div>\r\n            <div>Fre</div>\r\n            <div>Lør</div>\r\n            <div>Søn</div>\r\n        </div>\r\n        <div class=\"calendar-dates\">\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<script src=\"js/calendar.js\"></script>\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/index.html b/index.html
+--- a/index.html	(revision d807416b2d948b377bcc4f14302b6396d628b483)
++++ b/index.html	(date 1778490883795)
+@@ -4,6 +4,8 @@
+     <meta charset="UTF-8">
+     <title>Title</title>
+     <link rel="stylesheet" href="css/calendar.css">
++    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
++
+ </head>
+ <body>
+ 
+@@ -29,6 +31,5 @@
+     </div>
+ </div>
+ 
+-<script src="js/calendar.js"></script>
+ </body>
+ </html>
+\ No newline at end of file
+Index: js/main.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/js/main.js b/js/main.js
+new file mode 100644
+--- /dev/null	(date 1778490140531)
++++ b/js/main.js	(date 1778490140531)
+@@ -0,0 +1,14 @@
++// Find elementerne
++var bookingBtn = document.getElementById('bookingBtn');
++var toastElement = document.getElementById('liveToast');
++
++// Lyt efter klik på booking knappen
++bookingBtn.addEventListener('click', function () {
++    // Valgfrit — opdater teksten dynamisk
++    document.getElementById('toast-title').textContent = 'Booking bekræftet!';
++    document.getElementById('toast-body').textContent = 'Din booking er modtaget. Vi glæder os til at se dig!';
++
++    // Vis toasten
++    var toast = new bootstrap.Toast(toastElement);
++    toast.show();
++});
+\ No newline at end of file
