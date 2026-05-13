@@ -2,6 +2,8 @@ const calendarDates = document.querySelector('.calendar-dates');
 const monthYear = document.getElementById('month-year');
 const prevMonthBtn = document.getElementById('prev-month');
 const nextMonthBtn = document.getElementById('next-month');
+//DENNE API_URL SKAL ÆNDRES NÅR VI DEPLOYER
+const API_URL = 'http://localhost:8080';
 
 let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
@@ -11,12 +13,72 @@ const months = [
     'Juli', 'August', 'September', 'Oktober', 'November', 'December'
 ];
 
-function renderCalendar(month, year) {
+let bookedDates = new Set();
+let blockedDates = new Set();
+
+//Modtager en startDato og endDato, og returnerer alle dage imellem som individuelle datoer i et Set(List)
+function expandDateRange(startDate, endDate) {
+    const dates = new Set();
+    const current = new Date(startDate);
+    const end = new Date(endDate);
+
+    while (current <= end) {
+        dates.add(current.toISOString().split('T')[0]); // Converts JS Date object from earlier to a string like this: "2025-05-15T00:00:00.000Z"
+        current.setDate(current.getDate() + 1); //Makes the day loop from the current date to the end date. Instead of only having 15th may and 20th may it will be 15, 16, 17 etc.
+    }
+    return dates;
+}
+
+async function fetchCalendarData() {
+    try {
+        //Henter Backend Booking objekter ned og omdanner til JS.
+        const res = await fetch(`${API_URL}/booking/all`)
+        const bookings = await res.json();
+
+        //Tomme lister der bliver udfyldt.
+        bookedDates = new Set();
+        blockedDates = new Set();
+
+        //Benytter de forskellige parameter siden vi har tilgået backend nu.
+        bookings.forEach(function (booking) {
+            const status = booking.bookingStatus;
+            const start = booking.startDate;
+            const end = booking.endDate;
+
+            if (status === 'APPROVED') {
+                const dates = expandDateRange(start, end);
+                dates.forEach(function (date) {
+                    bookedDates.add(date);
+                });
+            }
+
+            if (status === 'BLOCKED') {
+                const dates = expandDateRange(start, end);
+                dates.forEach(function (date) {
+                    blockedDates.add(date);
+                });
+            }
+        });
+
+    } catch (err) {
+        console.error('Fejl ved hentning af kalenderdata:', err);
+    }
+}
+
+//func gør at den måde vi har kalender skrevet i frontend og backend bliver ens, så de kan sammenlignes. Fx fra '2025, 05, 17' til 2025-05-17.
+function toDateKey(day, month, year) {
+    return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+}
+
+async function renderCalendar(month, year) {
     //Clear previous render.
     calendarDates.innerHTML = '';
 
     //update header text.
     monthYear.textContent = `${months[month]} ${year}`;
+
+    //Henter data fra backend før vi renderer kalenderen.
+    await fetchCalendarData();
 
     //Get the first day of the month
     const firstDay = (new Date(year, month, 1).getDay() + 6) % 7;
@@ -47,6 +109,18 @@ function renderCalendar(month, year) {
             day.classList.add('current-date');
         }
 
+
+        const key = toDateKey(i, month, year);
+
+        // tjek om datoen er blokeret eller booket og tilføj CSS klasse
+        if (blockedDates.has(key)) {
+            day.classList.add('date-blocked');
+            day.dataset.type = 'blocked';
+        } else if (bookedDates.has(key)) {
+            day.classList.add('date-booked');
+            day.dataset.type = 'booked';
+        }
+
         calendarDates.appendChild(day);
     }
 }
@@ -74,9 +148,21 @@ nextMonthBtn.addEventListener('click', () => {
 });
 
 calendarDates.addEventListener('click', (e) => {
-    if (e.target.textContent !== '') {
+    const target = e.target;
+    if (!target.textContent) return;
 
-        //TODO: Replace alert with functionality.
-        alert(`Du klikkede på ${e.target.textContent} ${months[currentMonth]} ${currentYear}`);
+    const type = target.dataset.type;
+
+    // Blokerede og bookede datoer kan ikke klikkes
+    if (type === 'blocked') {
+        alert('Denne dato er blokeret af admin.');
+        return;
     }
+    if (type === 'booked') {
+        alert('Denne dato er allerede booket.');
+        return;
+    }
+
+    // TODO: Udskift med din booking logik
+    alert(`Du klikkede på ${target.textContent} ${months[currentMonth]} ${currentYear}`);
 });
