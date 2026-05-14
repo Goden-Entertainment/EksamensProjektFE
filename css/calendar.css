@@ -1,0 +1,114 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f9;
+    display: flex;
+    margin: 100px;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+/*Calendar container*/
+.calendar {
+    width: 350px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/*header. Month name and navigation button*/
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.calendar-header button {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+#month-year {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/*Calendar grid. weekdays and dates*/
+.calendar-weekdays,
+.calendar-dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.calendar-weekdays div,
+.calendar-dates div {
+    text-align: center;
+    padding: 10px;
+}
+
+.calendar-weekdays {
+    background-color: #eaeef3;
+}
+
+.calendar-weekdays div {
+    font-weight: bold;
+}
+
+.calendar-dates div:hover {
+    background-color: #f1f1f1;
+}
+
+/*Highlight selected dates*/
+.selected-date {
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 4px;
+}
+
+/* farver bookede datoer røde — !important så den altid vinder over selected-date */
+.date-booked {
+    background-color: #e74c3c !important;
+    color: #fff;
+    cursor: not-allowed;
+}
+
+.date-booked:hover {
+    background-color: #c0392b !important;
+}
+
+/* farver blokerede datoer grå — !important så den altid vinder over selected-date */
+.date-blocked {
+    background-color: #95a5a6 !important;
+    color: #fff;
+    cursor: not-allowed;
+}
+
+.date-blocked:hover {
+    background-color: #7f8c8d !important;
+}
+
+/* styling til forklaringen i bunden */
+.calendar-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 12px;
+    border-top: 1px solid #eaeef3;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #666;
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+}
