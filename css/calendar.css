@@ -59,8 +59,58 @@ body {
     background-color: #f1f1f1;
 }
 
-/*Highlight today*/
-.current-date {
-    background-color: #007bff;
+/*!*Highlight today*!*/
+/*.current-date {*/
+/*    background-color: #007bff;*/
+/*    color: #fff;*/
+/*}*/
+/*Highlight selected dates*/
+.selected-date {
+    background-color: #28a745;
     color: #fff;
+    border-radius: 4px;
+}
+
+/* ⬇ SKAL HAVE MED — farver bookede datoer røde */
+.date-booked {
+    background-color: #e74c3c;
+    color: #fff;
+    cursor: not-allowed;
+}
+
+.date-booked:hover {
+    background-color: #c0392b !important;
+}
+
+/* ⬇ SKAL HAVE MED — farver blokerede datoer grå */
+.date-blocked {
+    background-color: #95a5a6;
+    color: #fff;
+    cursor: not-allowed;
+}
+
+.date-blocked:hover {
+    background-color: #7f8c8d !important;
+}
+
+/* ⬇ SKAL HAVE MED — styling til forklaringen i bunden */
+.calendar-legend {
+    display: flex;
+    gap: 16px;
+    padding: 10px 12px;
+    border-top: 1px solid #eaeef3;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #666;
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
 }

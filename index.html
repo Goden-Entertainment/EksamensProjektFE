@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/calendar.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -24,11 +26,108 @@
             <div>Lør</div>
             <div>Søn</div>
         </div>
-        <div class="calendar-dates">
-        </div>
+        <div class="calendar-dates"></div>
     </div>
 </div>
 
-<script src="js/calendar.js"></script>
+<!--booking request form-->
+<form id="bookingForm">
+    <div class="bookingForm">
+        <label for="companyName">Virksomhed</label>
+        <input type="text" id="companyName" name="companyName" placeholder="Navn på virksomhed" required>
+
+        <label for="address">Adresse</label>
+        <input type="text" id="address" name="address" placeholder="Virksomhedens adresse" required>
+
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="Eksempel@eksempel.dk" required>
+
+        <label for="guests">Antal deltagere</label>
+        <input type="number" id="guests" name="guests" min="1" placeholder="Forventet antal deltagere" required>
+
+        <label for="startDate">Start dato</label>
+        <input type="date" id="startDate" name="startDate" required>
+
+        <label for="endDate">Slut dato</label>
+        <input type="date" id="endDate" name="endDate" required>
+    </div>
+
+    <!--Checkbox-->
+    <div class="checkbox">
+        <input type="checkbox" id="breakfast" name="addOns" value="BREAKFAST">
+        <label for="breakfast">Morgenmad</label>
+
+        <input type="checkbox" id="lunch" name="addOns" value="LUNCH">
+        <label for="lunch">Frokost</label>
+
+        <input type="checkbox" id="dinner" name="addOns" value="DINNER">
+        <label for="dinner">Aftensmad</label>
+
+        <input type="checkbox" id="meeting" name="addOns" value="MEETING">
+        <label for="meeting">Dagsmøder</label>
+
+        <input type="checkbox" id="workshop" name="addOns" value="WORKSHOP">
+        <label for="workshop">Workshop</label>
+
+        <input type="checkbox" id="retreat" name="addOns" value="RETREAT">
+        <label for="retreat">Retreat</label>
+
+        <input type="checkbox" id="courses" name="addOns" value="COURSES">
+        <label for="courses">Kursus</label>
+    </div>
+
+    <div class="description">
+        <label for="description">Beskrivelse</label>
+        <textarea id="description" name="description" placeholder="Skriv text her..."></textarea>
+    </div>
+
+    <button id="submitButton" type="submit">Send anmodning</button>
+</form>
+
+<!--When a daterange is selected and one or more days fall within a booked or blocked date-segment-->
+<div class="position-fixed start-50 translate-middle p-3" style="z-index: 11; bottom: 225px">
+    <div id="errorToast" class="toast text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Du kan desvære ikke vælge denne dato.</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="errorToastMessage"></div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="position-fixed start-50 translate-middle p-3" style="z-index: 11; bottom: 225px">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto" id="toast-title">Booking bekræftet!</strong>
+            <small>just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="toast-body">
+            Din booking er modtaget. Vi glæder os til at se dig!
+        </div>
+    </div>
+
+    <!-- forklaring i bunden af kalenderen med hvilke farve er hvad -->
+    <div class="calendar-legend">
+        <div class="legend-item">
+            <div class="legend-dot" style="background:#007bff"></div>
+            <span>I dag</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-dot" style="background:#e74c3c"></div>
+            <span>Booket</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-dot" style="background:#95a5a6"></div>
+            <span>Blokeret</span>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/calendar.js" defer></script>
+<script src="js/bookingRequest.js" defer></script>
 </body>
 </html>
