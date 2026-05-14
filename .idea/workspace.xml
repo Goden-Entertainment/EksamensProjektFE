@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="a9e6db8b-e9de-4ad8-a846-69eff1f5279e" name="Changes" comment="Booking Booking">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/calendar.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/calendar.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/bookingRequest.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/bookingRequest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/toast.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/toast.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/calendar.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,16 +36,17 @@
     &quot;assignee&quot;: &quot;YacqubJAD&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Goden-Entertainment/EksamensProjektFE.git",
-    "accountId": "96ceff1d-f0e0-448d-8598-0953acd73672"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Goden-Entertainment/EksamensProjektFE.git&quot;,
+    &quot;accountId&quot;: &quot;96ceff1d-f0e0-448d-8598-0953acd73672&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="3DIZX7hz3TzEfkxHL5OFL7NQ7gq" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -58,7 +59,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "git-widget-placeholder": "EK-39",
+    "git-widget-placeholder": "#3 on EK-33",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Dirir/IdeaProjects/EksamensProjektFE",
@@ -112,17 +113,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="RUN_TOOL" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="EksamensProjektFE" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="EksamensProjektFE" />
-      <option name="filePath" />
       <method v="2" />
     </configuration>
   </component>

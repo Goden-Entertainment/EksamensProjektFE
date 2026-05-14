@@ -180,56 +180,57 @@ calendarDates.addEventListener('click', (e) => {
     if (type === 'blocked') {
         alert('Denne dato er blokeret af admin.');
         return;
-        // Byg datostrengen i formatet yyyy-mm-dd
-        const day = e.target.textContent.padStart(2, '0');
-        const month = String(currentMonth + 1).padStart(2, '0');
-        const dateString = `${currentYear}-${month}-${day}`;
-
-        // Hent referencer til de to dato input felter
-        const startDate = document.getElementById("startDate");
-        const endDate = document.getElementById("endDate");
-
-        // Hvis begge felter allerede er udfyldt, nulstil alt og start forfra
-        if (startDate.value && endDate.value) {
-            startDate.value = '';
-            endDate.value = '';
-            selectedStart = null;
-            selectedEnd = null;
-            document.querySelectorAll('.calendar-dates div').forEach(d => d.classList.remove('selected-date'));
-        }
-
-        // Hvis startDate er tom, sæt den første valgte dato
-        if (!startDate.value) {
-            startDate.value = dateString;
-            selectedStart = dateString;
-            e.target.classList.add('selected-date');
-        } else {
-            // Ellers sæt den anden valgte dato som slutdato
-            endDate.value = dateString;
-            selectedEnd = dateString;
-
-            // Markér alle datoer mellem start og slut med grøn
-            const start = new Date(startDate.value);
-            const end = new Date(endDate.value);
-
-            document.querySelectorAll('.calendar-dates div').forEach(d => {
-                if (d.textContent !== '') {
-                    const cellDay = d.textContent.padStart(2, '0');
-                    const cellDate = new Date(`${currentYear}-${month}-${cellDay}`);
-
-                    // Tilføj grøn markering hvis datoen er inden for intervallet
-                    if (cellDate >= start && cellDate <= end) {
-                        d.classList.add('selected-date');
-                    }
-                }
-            });
-        }
     }
     if (type === 'booked') {
         alert('Denne dato er allerede booket.');
         return;
     }
 
-    // TODO: Udskift med din booking logik
-    alert(`Du klikkede på ${target.textContent} ${months[currentMonth]} ${currentYear}`);
+    // Byg datostrengen i formatet yyyy-mm-dd
+    const day = e.target.textContent.padStart(2, '0');
+    const month = String(currentMonth + 1).padStart(2, '0');
+    const dateString = `${currentYear}-${month}-${day}`;
+
+    // Hent referencer til de to dato input felter
+    const startDate = document.getElementById("startDate");
+    const endDate = document.getElementById("endDate");
+
+    // Hvis begge felter allerede er udfyldt, nulstil alt og start forfra
+    if (startDate.value && endDate.value) {
+        startDate.value = '';
+        endDate.value = '';
+        selectedStart = null;
+        selectedEnd = null;
+        document.querySelectorAll('.calendar-dates div').forEach(d => d.classList.remove('selected-date'));
+    }
+
+    // Hvis startDate er tom, sæt den første valgte dato
+    if (!startDate.value) {
+        startDate.value = dateString;
+        selectedStart = dateString;
+        e.target.classList.add('selected-date');
+    } else {
+        // Ellers sæt den anden valgte dato som slutdato
+        endDate.value = dateString;
+        selectedEnd = dateString;
+
+        // Markér alle datoer mellem start og slut med grøn
+        const start = new Date(startDate.value);
+        const end = new Date(endDate.value);
+
+        document.querySelectorAll('.calendar-dates div').forEach(d => {
+            if (d.textContent !== '') {
+                const cellDay = d.textContent.padStart(2, '0');
+                const cellDate = new Date(`${currentYear}-${month}-${cellDay}`);
+
+                // Tilføj grøn markering hvis datoen er inden for intervallet
+                if (cellDate >= start && cellDate <= end) {
+                    d.classList.add('selected-date');
+                }
+            }
+        });
+    }
+
+    // // TODO: Udskift med din booking logik
+    // alert(`Du klikkede på ${target.textContent} ${months[currentMonth]} ${currentYear}`);
 });
