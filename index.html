@@ -78,11 +78,22 @@
 
     <div class="description">
         <label for="description">Beskrivelse</label>
-        <textarea id="description" name="description">Skriv text her...</textarea>
+        <textarea id="description" name="description" placeholder="Skriv text her..."></textarea>
     </div>
 
-    <input id="submitButton" type="submit" value="Send anmodning">
+    <button id="submitButton" type="submit">Send anmodning</button>
 </form>
+
+<!--When a daterange is selected and one or more days fall within a booked or blocked date-segment-->
+<div class="position-fixed start-50 translate-middle p-3" style="z-index: 11; bottom: 225px">
+    <div id="errorToast" class="toast text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Du kan desvære ikke vælge denne dato.</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="errorToastMessage"></div>
+    </div>
+</div>
 
 <!-- Toast -->
 <div class="position-fixed start-50 translate-middle p-3" style="z-index: 11; bottom: 225px">
@@ -99,8 +110,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/calendar.js"></script>
-<!-- Toast JS tilføjet -->
-<script src="js/toast.js" defer></script>
+<script src="js/calendar.js" defer></script>
+<script src="js/bookingRequest.js" defer></script>
 </body>
 </html>

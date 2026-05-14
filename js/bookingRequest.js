@@ -1,5 +1,5 @@
 //Fetch Booking.
-document.getElementById("submitButton").addEventListener("click", function (e) {
+document.getElementById("bookingForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
     //Find all checkboxes in enum addOns.
@@ -18,7 +18,7 @@ document.getElementById("submitButton").addEventListener("click", function (e) {
         bookingStatus: "PENDING",
         addOns: addOns
     };
-
+    console.log("Sending:", JSON.stringify(bookingData));
     //Send to backend server.
     fetch("http://localhost:8080/booking/create", {
         method: "POST",
@@ -27,10 +27,16 @@ document.getElementById("submitButton").addEventListener("click", function (e) {
         },
         body: JSON.stringify(bookingData)
     })
-        //after, it sends a response.
         .then(response => {
             if (response.ok) {
-                console.log("booking response: ok.");
+                //Success Toast
+                var toast = new bootstrap.Toast(document.getElementById('liveToast'));
+                toast.show();
+            } else {
+                return response.text().then(errorMessage => {
+                    //Error Toast
+                    new bootstrap.Toast(document.getElementById("errorToast")).show();
+                });
             }
         })
         .catch(error => {
