@@ -59,10 +59,16 @@ body {
     background-color: #f1f1f1;
 }
 
-/*Highlight today*/
-.current-date {
-    background-color: #007bff;
+/*!*Highlight today*!*/
+/*.current-date {*/
+/*    background-color: #007bff;*/
+/*    color: #fff;*/
+/*}*/
+/*Highlight selected dates*/
+.selected-date {
+    background-color: #28a745;
     color: #fff;
+    border-radius: 4px;
 }
 
 /* ⬇ SKAL HAVE MED — farver bookede datoer røde */
