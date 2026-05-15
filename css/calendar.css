@@ -3,6 +3,7 @@ body {
     background-color: #f4f6f9;
     display: flex;
     margin: 100px;
+    margin-top: 80px;
     justify-content: flex-start;
     align-items: flex-start;
 }
@@ -111,4 +112,22 @@ body {
     width: 12px;
     height: 12px;
     border-radius: 3px;
+}
+nav {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+nav img {
+    height: 40px;
+    width: auto;
 }
