@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Yactchy typ</title>
+    <link rel="stylesheet" href="../css/admin.css">
+
+</head>
+<body>
+
+<!-- MATCH DE FREMTIDIGE HTML'ER MED DISSE NAVNE / de gør ingenting lige pt!! linje 101-106 -->
+<div class="sidebar">
+    <p class="sidebar-label">Oversigt</p>
+    <a href="admin.html" class="active">Anmodninger</a>
+    <a href="calendar.html">Kalender</a>
+    <a href="history.html">Historik</a>
+    <a href="settings.html">Indstillinger</a>
+
+    <!-- Kapacitet -->
+    <div class="sidebar-capacity">
+        <p class="sidebar-label">Kapacitet</p>
+        <p>20 senge</p>
+        <p>9 værelser</p>
+        <p>2 enkelt · 5 dobbelt · 2 m. 4 senge</p>
+    </div>
+
+
+    <!-- I dag -->
+    <div class="sidebar-today">
+        <p class="sidebar-label">I dag</p>
+        <p id="today-date"></p>
+    </div>
+</div>
+
+<div class="main">
+    <h1>Indkomne Anmodninger</h1>
+    <h5>Her ligger alle booking-anmodninger fra hjemmesiden. Klik en række for at se detaljer og godkende, afvise eller
+        redigere.
+        Anmodninger på samme datoer er tilladt - du vælger den rette ved godkendelse.
+    </h5>
+
+    <div class="filter-buttons">
+        <button id="btn-alle">ALLE</button>
+        <button id="btn-afventer">AFVENTER</button>
+        <button id="btn-godkendt">GODKENDT</button>
+        <button id="btn-afvist">AFVIST</button>
+    </div>
+
+    <div class="table-header">
+        <div>Datoer</div>
+        <div>Kunde</div>
+        <div>Type</div>
+        <div>Antal</div>
+        <div>Status</div>
+    </div>
+
+    <!-- Bookings bliver indsat her fra JS -->
+    <div id="bookings-list">
+
+        <!--SLET DETTE DATA NÅR BACKEND KOMMER PÅ OG HENTER DATA BARE TIL TEST -->
+        <div class="table-row">
+            <div>18 maj - 22 maj</div>
+            <div>Test Firma</div>
+            <div>Retreat</div>
+            <div>10</div>
+            <div><span class="status-afventer">AFVENTER</span></div>
+        </div>
+
+        <div class="table-row">
+            <div>25 maj - 27 maj</div>
+            <div>Anden Virksomhed</div>
+            <div>Workshop</div>
+            <div>20</div>
+            <div><span class="status-godkendt">GODKENDT</span></div>
+        </div>
+    </div>
+
+</div>
+
+<script src="../js/admin.js"></script>
+
+<!-- Bruges til at formatere Idag section så den viser den reele dag. -->
+<script>
+    document.getElementById('today-date').textContent = new Date().toLocaleDateString('da-DK', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+</script>
+</body>
+</html>
