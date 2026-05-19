@@ -122,3 +122,11 @@ h5 {
     font-size: 12px;
     font-weight: bold;
 }
+.status-afvist {
+    background-color: #f0f0f0;
+    color: #555;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: bold;
+}
