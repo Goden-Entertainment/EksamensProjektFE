@@ -22,9 +22,33 @@ async function fetchBookings() {
             <div>${booking.guests}</div>
             <div>${booking.bookingStatus}</div>`;
 
+            // Tilføj klik event der åbner panelet med booking data
+            bookingRow.addEventListener('click', () => openPanel(booking));
+
             list.appendChild(bookingRow);
         });
     }
+}
+
+// Åbn panel med booking data
+function openPanel(booking) {
+    document.getElementById('panelTitle').textContent = 'Anmodning fra ' + booking.companyName;
+    document.getElementById('panelStart').textContent = booking.startDate;
+    document.getElementById('panelEnd').textContent = booking.endDate;
+    document.getElementById('panelGuests').textContent = booking.guests;
+    document.getElementById('panelType').textContent = booking.addOns;
+    document.getElementById('panelName').textContent = booking.companyName;
+    document.getElementById('panelEmail').textContent = booking.email;
+    document.getElementById('panelDescription').textContent = booking.description;
+
+    document.getElementById('bookingPanel').classList.add('active');
+    document.getElementById('overlay').classList.add('active');
+}
+
+// Luk panel
+function closePanel() {
+    document.getElementById('bookingPanel').classList.remove('active');
+    document.getElementById('overlay').classList.remove('active');
 }
 
 fetchBookings();

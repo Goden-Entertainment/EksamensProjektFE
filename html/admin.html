@@ -8,6 +8,43 @@
 </head>
 <body>
 
+
+<!-- Overlay baggrund -->
+<div id="overlay" class="overlay" onclick="closePanel()"></div>
+
+<!-- Slide-in panel -->
+<div id="bookingPanel" class="booking-panel">
+    <div class="panel-header">
+        <h2 id="panelTitle">Anmodning</h2>
+        <button class="close-btn" onclick="closePanel()">✕</button>
+    </div>
+
+    <div class="panel-section">
+        <p class="panel-label">BOOKING-DETALJER</p>
+        <div class="panel-row"><span>Ankomst</span><span id="panelStart"></span></div>
+        <div class="panel-row"><span>Afrejse</span><span id="panelEnd"></span></div>
+        <div class="panel-row"><span>Antal personer</span><span id="panelGuests"></span></div>
+        <div class="panel-row"><span>Type</span><span id="panelType"></span></div>
+    </div>
+
+    <div class="panel-section">
+        <p class="panel-label">KONTAKT</p>
+        <div class="panel-row"><span>Navn</span><span id="panelName"></span></div>
+        <div class="panel-row"><span>Email</span><span id="panelEmail"></span></div>
+    </div>
+
+    <div class="panel-section">
+        <p class="panel-label">BESKED</p>
+        <p id="panelDescription"></p>
+    </div>
+
+    <div class="panel-actions">
+        <button class="btn-afvis" onclick="closePanel()">AFVIS</button>
+        <button class="btn-godkend">GODKEND</button>
+    </div>
+</div>
+
+
 <!-- MATCH DE FREMTIDIGE HTML'ER MED DISSE NAVNE / de gør ingenting lige pt!! linje 101-106 -->
 <div class="sidebar">
     <p class="sidebar-label">Oversigt</p>
