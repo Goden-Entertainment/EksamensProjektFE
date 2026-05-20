@@ -26,13 +26,15 @@ async function fetchBookings() {
         const row = document.createElement('div');
         row.classList.add('table-row');
         row.dataset.status = booking.bookingStatus;
+        const addOnsDisplay = addOnsLabels[booking.addOns] ?? booking.addOns;
         row.innerHTML = `
             <div>${booking.startDate} - ${booking.endDate}</div>
             <div>${booking.companyName}</div>
-            <div>${addOnsLabels[booking.addOns] ?? booking.addOns}</div>
+            <div>${addOnsDisplay}</div>
             <div>${booking.guests}</div>
             <div><span class="${statusClass(booking.bookingStatus)}">${translateStatus(booking.bookingStatus)}</span></div>
         `;
+        row.addEventListener('click', function() { openPanel(booking); });
         list.appendChild(row);
     });
 }
@@ -74,7 +76,7 @@ function openPanel(booking) {
     document.getElementById('panelStart').textContent = booking.startDate;
     document.getElementById('panelEnd').textContent = booking.endDate;
     document.getElementById('panelGuests').textContent = booking.guests;
-    document.getElementById('panelType').textContent = booking.addOns;
+    document.getElementById('panelType').textContent = addOnsLabels[booking.addOns] ?? booking.addOns;
     document.getElementById('panelName').textContent = booking.companyName;
     document.getElementById('panelEmail').textContent = booking.email;
     document.getElementById('panelDescription').textContent = booking.description;

@@ -2,8 +2,8 @@
 document.getElementById("bookingForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const AddOnEnum = document.querySelector('input[name="addOns"]:checked');
-    //Create object with all the booking information.
+    const selectedAddOn = document.querySelector('input[name="addOns"]:checked');
+
     const bookingData = {
         companyName: document.getElementById("companyName").value,
         address: document.getElementById("address").value,
@@ -13,7 +13,7 @@ document.getElementById("bookingForm").addEventListener("submit", function (e) {
         endDate: document.getElementById("endDate").value,
         description: document.getElementById("description").value,
         bookingStatus: "PENDING",
-        addOns: AddOnEnum.value
+        addOns: selectedAddOn ? selectedAddOn.value : null
     };
     console.log("Sending:", JSON.stringify(bookingData));
     //Send to backend server.
