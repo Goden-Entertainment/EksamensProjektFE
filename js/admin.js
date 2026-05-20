@@ -1,33 +1,71 @@
-const API_URL = 'http://20.251.162.251/api/';
+const API_URL = 'http://20.251.162.251/api';
 const EMPTY_MESSAGE = 'Der er ingen anmodninger at vise i øjeblikket';
+const alleBtn = document.getElementById('btn-alle');
+const afventerBtn = document.getElementById('btn-afventer');
+const godkendtBtn = document.getElementById('btn-godkendt');
+const afvistBtn = document.getElementById('btn-afvist');
+const addOnsLabels = {
+    OMF: "Overnatning med forplejning",
+    OUF: "Overnatning uden forplejning",
+    DM: "Dagsmøde"
+};
 
 async function fetchBookings() {
-    const res = await fetch(`${API_URL}booking/all`);
+    const res = await fetch(`${API_URL}/booking/all`);
     const bookings = await res.json();
-    console.log(bookings);
 
     const list = document.getElementById('bookings-list');
     list.innerHTML = '';
 
     if (bookings.length === 0) {
-        list.innerHTML = `<p>${EMPTY_MESSAGE}</p>`;
-    } else {
-        bookings.forEach(booking => {
-            const bookingRow = document.createElement('div');
-            bookingRow.classList.add('table-row');
-            bookingRow.innerHTML = `
+        list.innerHTML = '<p>Der er ingen anmodninger at vise i øjeblikket</p>';
+        return;
+    }
+
+    bookings.forEach(function(booking) {
+        const row = document.createElement('div');
+        row.classList.add('table-row');
+        row.dataset.status = booking.bookingStatus;
+        row.innerHTML = `
             <div>${booking.startDate} - ${booking.endDate}</div>
             <div>${booking.companyName}</div>
-            <div>${booking.addOns}</div>
+            <div>${addOnsLabels[booking.addOns] ?? booking.addOns}</div>
             <div>${booking.guests}</div>
-            <div>${booking.bookingStatus}</div>`;
+            <div><span class="${statusClass(booking.bookingStatus)}">${translateStatus(booking.bookingStatus)}</span></div>
+        `;
+        list.appendChild(row);
+    });
+}
 
-            // Tilføj klik event der åbner panelet med booking data
-            bookingRow.addEventListener('click', () => openPanel(booking));
+// Funktion til at give statuserne farver
+function statusClass(status) {
+    if (status === 'PENDING') return 'status-afventer';
+    if (status === 'APPROVED') return 'status-godkendt';
+    if (status === 'REJECTED') return 'status-afvist';
+    return '';
+}
 
-            list.appendChild(bookingRow);
-        });
-    }
+// Så det bliver på dansk
+function translateStatus(status) {
+    if (status === 'PENDING') return 'AFVENTER';
+    if (status === 'APPROVED') return 'GODKENDT';
+    if (status === 'REJECTED') return 'AFVIST';
+    if (status === 'CANCELLED') return 'ANNULLERET';
+    if (status === 'BLOCKED') return 'BLOKERET';
+    return status;
+}
+
+function filterBookings(status) {
+    const rows = document.querySelectorAll('.table-row');
+    rows.forEach(function(row) {
+        if (status === 'ALLE') {
+            row.style.display = 'grid';
+        } else if (row.dataset.status === status) {
+            row.style.display = 'grid';
+        } else {
+            row.style.display = 'none';
+        }
+    });
 }
 
 // Åbn panel med booking data
@@ -52,3 +90,19 @@ function closePanel() {
 }
 
 fetchBookings();
+
+alleBtn.addEventListener('click', function() {
+    filterBookings('ALLE');
+});
+
+afventerBtn.addEventListener('click', function() {
+    filterBookings('PENDING');
+});
+
+godkendtBtn.addEventListener('click', function() {
+    filterBookings('APPROVED');
+});
+
+afvistBtn.addEventListener('click', function() {
+    filterBookings('REJECTED');
+});

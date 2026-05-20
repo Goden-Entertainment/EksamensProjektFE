@@ -71,7 +71,7 @@
         <input type="email" id="email" name="email" placeholder="Eksempel@eksempel.dk" required>
 
         <label for="guests">Antal deltagere</label>
-        <input type="number" id="guests" name="guests" min="1" placeholder="Forventet antal deltagere" required>
+        <input type="number" id="guests" name="guests" min="8" max="20" placeholder="Forventet antal deltagere" required>
 
         <label for="startDate">Start dato</label>
         <input type="date" id="startDate" name="startDate" required>
@@ -80,28 +80,16 @@
         <input type="date" id="endDate" name="endDate" required>
     </div>
 
-    <!--Checkbox-->
+    <!--AddOns-->
     <div class="checkbox">
-        <input type="checkbox" id="breakfast" name="addOns" value="BREAKFAST">
-        <label for="breakfast">Morgenmad</label>
+        <input type="radio" id="OMF" name="addOns" value="OMF">
+        <label for="OMF">Overnatning med forplejning</label>
 
-        <input type="checkbox" id="lunch" name="addOns" value="LUNCH">
-        <label for="lunch">Frokost</label>
+        <input type="radio" id="OUF" name="addOns" value="OUF">
+        <label for="OUF">Overnatning uden forplejning</label>
 
-        <input type="checkbox" id="dinner" name="addOns" value="DINNER">
-        <label for="dinner">Aftensmad</label>
-
-        <input type="checkbox" id="meeting" name="addOns" value="MEETING">
-        <label for="meeting">Dagsmøder</label>
-
-        <input type="checkbox" id="workshop" name="addOns" value="WORKSHOP">
-        <label for="workshop">Workshop</label>
-
-        <input type="checkbox" id="retreat" name="addOns" value="RETREAT">
-        <label for="retreat">Retreat</label>
-
-        <input type="checkbox" id="courses" name="addOns" value="COURSES">
-        <label for="courses">Kursus</label>
+        <input type="radio" id="DM" name="addOns" value="DM">
+        <label for="DM">Dagsmøde</label>
     </div>
 
     <div class="description">
