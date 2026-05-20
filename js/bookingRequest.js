@@ -6,7 +6,7 @@ document.getElementById("bookingForm").addEventListener("submit", function (e) {
     //Create object with all the booking information.
     const bookingData = {
         companyName: document.getElementById("companyName").value,
-        address: document.getElementById("address").value,
+        phonenumber: document.getElementById("phonenumber").value,
         email: document.getElementById("email").value,
         guests: parseInt(document.getElementById("guests").value),
         startDate: document.getElementById("startDate").value,
