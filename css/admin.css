@@ -130,3 +130,20 @@ h5 {
     font-size: 12px;
     font-weight: bold;
 }
+.sort-buttons {
+    margin-top: 8px;
+}
+
+.sort-buttons button {
+    padding: 4px 10px;
+    border: 1px solid #ccc;
+    background: white;
+    color: #555;
+    cursor: pointer;
+    font-size: 11px;
+    border-radius: 4px;
+}
+
+.sort-buttons button:hover {
+    background: #eee;
+}
