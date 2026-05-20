@@ -2,8 +2,14 @@
 body {
     font-family: 'Source Sans 3', Arial, sans-serif;
     background-color: #f4f6f9;
-    margin: 0;
-    padding: 80px 0 60px 0;
+    margin: 0 auto;
+    max-width: 1280px;
+    padding: 100px 40px 60px 40px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 420px;
+    column-gap: 36px;
+    align-items: start;
+    box-sizing: border-box;
 }
 
 /* Page intro text block */
@@ -386,11 +392,108 @@ body {
     line-height: 1.55;
 }
 
+/* ── Direct element grid placement (no wrapper divs in HTML) ── */
+body > h3,
+body > h1,
+body > p {
+    grid-column: 1 / -1;
+}
+
+body > h3 {
+    font-size: 13px;
+    font-weight: 400;
+    color: #555;
+    margin: 0 0 8px 0;
+    font-family: 'Source Sans 3', Arial, sans-serif;
+}
+
+body > h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 42px;
+    font-weight: 400;
+    color: #1e1e1e;
+    margin: 0 0 14px 0;
+    line-height: 1.15;
+}
+
+body > p {
+    font-size: 15px;
+    color: #555;
+    max-width: 580px;
+    line-height: 1.7;
+    margin: 0 0 24px 0;
+}
+
+body > .calendar {
+    grid-column: 1;
+    grid-row: 4;
+}
+
+body > .calendar-legend {
+    grid-column: 1;
+    grid-row: 5;
+}
+
+body > #bookingForm {
+    grid-column: 2;
+    grid-row: 4 / 6;
+}
+
+/* ── Reorder form sections: type selector first ── */
+#bookingForm > .checkbox {
+    order: 1;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+#bookingForm > p {
+    order: 2;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #1e1e1e;
+    margin: 0 0 16px 0;
+}
+
+#bookingForm > .bookingForm {
+    order: 3;
+}
+
+#bookingForm > .description {
+    order: 4;
+}
+
+#bookingForm > button,
+#bookingForm > .submit-row {
+    order: 5;
+}
+
+#bookingForm > .submit-disclaimer {
+    order: 6;
+}
+
+/* ── Type-selector label inside .checkbox ── */
+.checkbox > p {
+    grid-column: 1 / -1;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1e1e1e;
+    margin: 0 0 8px 0;
+    font-family: 'Source Sans 3', Arial, sans-serif;
+}
+
 /* ── Responsive ── */
 @media (max-width: 900px) {
-    .booking-layout {
+    body {
         grid-template-columns: 1fr;
-        padding: 0 20px 40px 20px;
+        padding: 80px 20px 40px 20px;
+    }
+
+    body > .calendar,
+    body > .calendar-legend,
+    body > #bookingForm {
+        grid-column: 1;
+        grid-row: auto;
     }
 
     .checkbox {
