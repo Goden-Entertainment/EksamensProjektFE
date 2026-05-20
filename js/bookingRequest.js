@@ -17,7 +17,7 @@ document.getElementById("bookingForm").addEventListener("submit", function (e) {
     };
     console.log("Sending:", JSON.stringify(bookingData));
     //Send to backend server.
-    fetch("http://20.251.162.251/api/booking/create", {
+    fetch("http://localhost:8080/booking/create", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

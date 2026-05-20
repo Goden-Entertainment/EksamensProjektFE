@@ -1,4 +1,4 @@
-const API_URL = 'http://20.251.162.251/api';
+const API_URL = 'http://localhost:8080';
 const EMPTY_MESSAGE = 'Der er ingen anmodninger at vise i øjeblikket';
 const alleBtn = document.getElementById('btn-alle');
 const afventerBtn = document.getElementById('btn-afventer');
