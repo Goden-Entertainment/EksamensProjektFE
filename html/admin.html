@@ -83,6 +83,12 @@
         <button id="btn-afvist">AFVIST</button>
     </div>
 
+        <div class="sort-buttons">
+            <button id="btn-newest">SENESTE DATO FØRST</button>
+            <button id="btn-oldest">TIDLIGSTE DATO FØRST</button>
+        </div>
+
+
     <div class="table-header">
         <div>Datoer</div>
         <div>Kunde</div>
@@ -100,7 +106,12 @@
 
 <!-- Bruges til at formatere Idag section så den viser den reele dag. -->
 <script>
-    document.getElementById('today-date').textContent = new Date().toLocaleDateString('da-DK', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    document.getElementById('today-date').textContent = new Date().toLocaleDateString('da-DK', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
 </script>
 </body>
 </html>

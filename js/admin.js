@@ -4,6 +4,8 @@ const alleBtn = document.getElementById('btn-alle');
 const afventerBtn = document.getElementById('btn-afventer');
 const godkendtBtn = document.getElementById('btn-godkendt');
 const afvistBtn = document.getElementById('btn-afvist');
+const newestBtn = document.getElementById('btn-newest')
+const oldestBtn = document.getElementById('btn-oldest')
 const addOnsLabels = {
     OMF: "Overnatning med forplejning",
     OUF: "Overnatning uden forplejning",
@@ -27,6 +29,7 @@ async function fetchBookings() {
         row.classList.add('table-row');
         row.dataset.status = booking.bookingStatus;
         const addOnsDisplay = addOnsLabels[booking.addOns] ?? booking.addOns;
+        row.dataset.date = booking.startDate;
         row.innerHTML = `
             <div>${booking.startDate} - ${booking.endDate}</div>
             <div>${booking.companyName}</div>
@@ -35,6 +38,26 @@ async function fetchBookings() {
             <div><span class="${statusClass(booking.bookingStatus)}">${translateStatus(booking.bookingStatus)}</span></div>
         `;
         row.addEventListener('click', function() { openPanel(booking); });
+        list.appendChild(row);
+    });
+}
+
+function sortBookings(order){
+    const list = document.getElementById('bookings-list')
+    const rows = Array.from(list.querySelectorAll('.table-row'));
+
+    rows.sort(function (a, b){
+        const dateA = new Date(a.dataset.date);
+        const dateB = new Date(b.dataset.date);
+
+        if(order === 'newest'){
+            return dateB - dateA;
+        }else {
+            return dateA - dateB;
+        }
+    });
+
+    rows.forEach(function (row){
         list.appendChild(row);
     });
 }
@@ -107,4 +130,10 @@ godkendtBtn.addEventListener('click', function() {
 
 afvistBtn.addEventListener('click', function() {
     filterBookings('REJECTED');
+});
+newestBtn.addEventListener('click', function (){
+    sortBookings('newest');
+});
+oldestBtn.addEventListener('click', function (){
+    sortBookings('oldest');
 });
