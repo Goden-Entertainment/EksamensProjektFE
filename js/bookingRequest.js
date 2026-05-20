@@ -2,10 +2,7 @@
 document.getElementById("bookingForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    //Find all checkboxes in enum addOns.
-    const addOns = Array.from(document.querySelectorAll('input[name="addOns"]:checked'))
-        .map(cb => cb.value);
-
+    const AddOnEnum = document.querySelector('input[name="addOns"]:checked');
     //Create object with all the booking information.
     const bookingData = {
         companyName: document.getElementById("companyName").value,
@@ -16,7 +13,7 @@ document.getElementById("bookingForm").addEventListener("submit", function (e) {
         endDate: document.getElementById("endDate").value,
         description: document.getElementById("description").value,
         bookingStatus: "PENDING",
-        addOns: addOns
+        addOns: AddOnEnum.value
     };
     console.log("Sending:", JSON.stringify(bookingData));
     //Send to backend server.
@@ -34,6 +31,7 @@ document.getElementById("bookingForm").addEventListener("submit", function (e) {
                 toast.show();
             } else {
                 return response.text().then(errorMessage => {
+                    console.log("Error details:", errorMessage);
                     //Error Toast
                     new bootstrap.Toast(document.getElementById("errorToast")).show();
                 });

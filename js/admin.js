@@ -1,5 +1,10 @@
-const API_URL = 'http://20.251.162.251/api/';
+const API_URL = 'http://20.251.162.251/api';
 const EMPTY_MESSAGE = 'Der er ingen anmodninger at vise i øjeblikket';
+const addOnsLabels = {
+    OMF: "Overnatning med forplejning",
+    OUF: "Overnatning uden forplejning",
+    DM: "Dagsmøde"
+};
 
 async function fetchBookings() {
     const res = await fetch(`${API_URL}booking/all`);
@@ -18,7 +23,7 @@ async function fetchBookings() {
             bookingRow.innerHTML = `
             <div>${booking.startDate} - ${booking.endDate}</div>
             <div>${booking.companyName}</div>
-            <div>${booking.addOns}</div>
+            <div>${addOnsLabels[booking.addOns] ?? booking.addOns}</div>
             <div>${booking.guests}</div>
             <div>${booking.bookingStatus}</div>`;
 
