@@ -1,4 +1,5 @@
 const API_URL = 'http://localhost:8080';
+let currentBooking = null;
 const EMPTY_MESSAGE = 'Der er ingen anmodninger at vise i øjeblikket';
 const alleBtn = document.getElementById('btn-alle');
 const afventerBtn = document.getElementById('btn-afventer');
@@ -100,23 +101,83 @@ function filterBookings(status) {
 
 // Åbn panel med booking data
 function openPanel(booking) {
+    currentBooking = booking;
+
     document.getElementById('panelTitle').textContent = 'Anmodning fra ' + booking.companyName;
     document.getElementById('panelStart').textContent = booking.startDate;
     document.getElementById('panelEnd').textContent = booking.endDate;
     document.getElementById('panelGuests').textContent = booking.guests;
     document.getElementById('panelType').textContent = addOnsLabels[booking.addOns] ?? booking.addOns;
+    document.getElementById('panelStatus').textContent = translateStatus(booking.bookingStatus);
     document.getElementById('panelName').textContent = booking.companyName;
     document.getElementById('panelEmail').textContent = booking.email;
+    document.getElementById('panelPhone').textContent = booking.phonenumber ?? '';
     document.getElementById('panelDescription').textContent = booking.description;
+    document.getElementById('panelError').textContent = '';
 
-    document.getElementById('bookingPanel').classList.add('active');
+    document.getElementById('editStart').value = booking.startDate;
+    document.getElementById('editEnd').value = booking.endDate;
+    document.getElementById('editGuests').value = booking.guests;
+    document.getElementById('editType').value = booking.addOns;
+    document.getElementById('editStatus').value = booking.bookingStatus;
+    document.getElementById('editName').value = booking.companyName;
+    document.getElementById('editEmail').value = booking.email;
+    document.getElementById('editPhone').value = booking.phonenumber ?? '';
+    document.getElementById('editDescription').value = booking.description;
+
+    const panel = document.getElementById('bookingPanel');
+    panel.classList.remove('editing');
+    panel.classList.add('active');
     document.getElementById('overlay').classList.add('active');
 }
 
 // Luk panel
 function closePanel() {
-    document.getElementById('bookingPanel').classList.remove('active');
+    const panel = document.getElementById('bookingPanel');
+    panel.classList.remove('active', 'editing');
     document.getElementById('overlay').classList.remove('active');
+    currentBooking = null;
+}
+
+function toggleEdit() {
+    document.getElementById('bookingPanel').classList.toggle('editing');
+    document.getElementById('panelError').textContent = '';
+}
+
+async function saveBooking() {
+    const token = localStorage.getItem('token');
+    const body = {
+        companyName: document.getElementById('editName').value,
+        email: document.getElementById('editEmail').value,
+        phonenumber: document.getElementById('editPhone').value,
+        guests: parseInt(document.getElementById('editGuests').value),
+        startDate: document.getElementById('editStart').value,
+        endDate: document.getElementById('editEnd').value,
+        description: document.getElementById('editDescription').value,
+        addOns: document.getElementById('editType').value,
+        bookingStatus: document.getElementById('editStatus').value
+    };
+
+    try {
+        const res = await fetch(`${API_URL}/booking/update/${currentBooking.bookingId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(body)
+        });
+
+        if (!res.ok) {
+            document.getElementById('panelError').textContent = 'Kunne ikke gemme ændringerne. Prøv igen.';
+            return;
+        }
+
+        closePanel();
+        fetchBookings();
+    } catch (e) {
+        document.getElementById('panelError').textContent = 'Netværksfejl. Prøv igen.';
+    }
 }
 
 fetchBookings();
