@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Yactchy typ</title>
+    <link rel="stylesheet" href="../css/admin.css">
+
+</head>
+<body>
+
+
+<!-- Overlay baggrund -->
+<div id="overlay" class="overlay" onclick="closePanel()"></div>
+
+<!-- Slide-in panel -->
+<div id="bookingPanel" class="booking-panel">
+    <div class="panel-header">
+        <h2 id="panelTitle">Anmodning</h2>
+        <button class="close-btn" onclick="closePanel()">✕</button>
+    </div>
+
+    <div class="panel-section">
+        <p class="panel-label">BOOKING-DETALJER</p>
+        <div class="panel-row"><span>Ankomst</span><span id="panelStart"></span></div>
+        <div class="panel-row"><span>Afrejse</span><span id="panelEnd"></span></div>
+        <div class="panel-row"><span>Antal personer</span><span id="panelGuests"></span></div>
+        <div class="panel-row"><span>Type</span><span id="panelType"></span></div>
+    </div>
+
+    <div class="panel-section">
+        <p class="panel-label">KONTAKT</p>
+        <div class="panel-row"><span>Navn</span><span id="panelName"></span></div>
+        <div class="panel-row"><span>Email</span><span id="panelEmail"></span></div>
+    </div>
+
+    <div class="panel-section">
+        <p class="panel-label">BESKED</p>
+        <p id="panelDescription"></p>
+    </div>
+
+    <div class="panel-actions">
+        <button class="btn-afvis" onclick="closePanel()">AFVIS</button>
+        <button class="btn-godkend">GODKEND</button>
+    </div>
+</div>
+
+
+<!-- MATCH DE FREMTIDIGE HTML'ER MED DISSE NAVNE / de gør ingenting lige pt!! linje 101-106 -->
+<div class="sidebar">
+    <p class="sidebar-label">Oversigt</p>
+    <a href="admin.html" class="active">Anmodninger</a>
+    <a href="calendar.html">Kalender</a>
+    <a href="history.html">Historik</a>
+    <a href="settings.html">Indstillinger</a>
+
+    <!-- Kapacitet -->
+    <div class="sidebar-capacity">
+        <p class="sidebar-label">Kapacitet</p>
+        <p>20 senge</p>
+        <p>9 værelser</p>
+        <p>2 enkelt · 5 dobbelt · 2 m. 4 senge</p>
+    </div>
+
+
+    <!-- I dag -->
+    <div class="sidebar-today">
+        <p class="sidebar-label">I dag</p>
+        <p id="today-date"></p>
+    </div>
+</div>
+
+<div class="main">
+    <h1>Indkomne Anmodninger</h1>
+    <h5>Her ligger alle booking-anmodninger fra hjemmesiden. Klik en række for at se detaljer og godkende, afvise eller
+        redigere.
+        Anmodninger på samme datoer er tilladt - du vælger den rette ved godkendelse.
+    </h5>
+
+    <div class="filter-buttons">
+        <button id="btn-alle">ALLE</button>
+        <button id="btn-afventer">AFVENTER</button>
+        <button id="btn-godkendt">GODKENDT</button>
+        <button id="btn-afvist">AFVIST</button>
+    </div>
+
+        <div class="sort-buttons">
+            <button id="btn-newest">SENESTE DATO FØRST</button>
+            <button id="btn-oldest">TIDLIGSTE DATO FØRST</button>
+        </div>
+
+
+    <div class="table-header">
+        <div>Datoer</div>
+        <div>Kunde</div>
+        <div>Type</div>
+        <div>Antal</div>
+        <div>Status</div>
+    </div>
+
+    <!-- Bookings bliver indsat her fra JS -->
+    <div id="bookings-list"></div>
+
+</div>
+
+<script src="../js/admin.js"></script>
+
+<!-- Bruges til at formatere Idag section så den viser den reele dag. -->
+<script>
+    document.getElementById('today-date').textContent = new Date().toLocaleDateString('da-DK', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
+</script>
+</body>
+</html>
