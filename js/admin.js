@@ -13,7 +13,12 @@ const addOnsLabels = {
 };
 
 async function fetchBookings() {
-    const res = await fetch(`${API_URL}/booking/all`);
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${API_URL}/booking/all`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
     const bookings = await res.json();
 
     const list = document.getElementById('bookings-list');
