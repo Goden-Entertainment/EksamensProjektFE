@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9e6db8b-e9de-4ad8-a846-69eff1f5279e" name="Changes" comment="annoying">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/calendar.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/calendar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/calendar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/adminCalendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/adminCalendar.html" afterDir="false" />
     </list>
     <list id="eeba0060-73b3-4c41-9406-19b633c214b2" name="Changes by augus" comment="" />
     <option name="SHOW_DIALOG" value="false" />
