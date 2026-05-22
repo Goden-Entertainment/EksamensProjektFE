@@ -193,6 +193,10 @@ h5 {
     display: flex;
     gap: 10px;
     margin-top: 30px;
+    position: sticky;
+    bottom: 0;
+    background: white;
+    padding: 12px 0 4px;
 }
 
 .btn-afvis {
@@ -243,4 +247,67 @@ h5 {
 
 .sort-buttons button:hover {
     background: #eee;
+}
+
+/* Edit mode - swap view/edit elements */
+.edit-field {
+    display: none;
+}
+.booking-panel.editing .view-value {
+    display: none;
+}
+.booking-panel.editing .edit-field {
+    display: block;
+    width: 55%;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    background: #fafafa;
+    box-sizing: border-box;
+}
+textarea.edit-field {
+    width: 100%;
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Action button visibility */
+.edit-action {
+    display: none;
+}
+.booking-panel.editing .view-action {
+    display: none;
+}
+.booking-panel.editing .edit-action {
+    display: block;
+    flex: 1;
+    padding: 12px;
+    cursor: pointer;
+}
+
+.btn-rediger {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #2c5f2e;
+    background: white;
+    color: #2c5f2e;
+    cursor: pointer;
+}
+.btn-gem {
+    background: #2c5f2e;
+    color: white;
+    border: none;
+}
+.btn-annuller {
+    border: 1px solid #ccc;
+    background: white;
+}
+
+.panel-error {
+    color: #c0392b;
+    font-size: 13px;
+    margin-top: 8px;
+    min-height: 18px;
 }
