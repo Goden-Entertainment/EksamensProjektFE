@@ -1,4 +1,4 @@
-const API_URL = 'http://20.251.162.251/api';
+const API_URL = 'http://localhost:8080';
 const EMPTY_MESSAGE = 'Der er ingen anmodninger at vise i øjeblikket';
 const alleBtn = document.getElementById('btn-alle');
 const afventerBtn = document.getElementById('btn-afventer');
@@ -13,7 +13,12 @@ const addOnsLabels = {
 };
 
 async function fetchBookings() {
-    const res = await fetch(`${API_URL}/booking/all`);
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${API_URL}/booking/all`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
     const bookings = await res.json();
 
     const list = document.getElementById('bookings-list');
@@ -28,14 +33,16 @@ async function fetchBookings() {
         const row = document.createElement('div');
         row.classList.add('table-row');
         row.dataset.status = booking.bookingStatus;
+        const addOnsDisplay = addOnsLabels[booking.addOns] ?? booking.addOns;
         row.dataset.date = booking.startDate;
         row.innerHTML = `
             <div>${booking.startDate} - ${booking.endDate}</div>
             <div>${booking.companyName}</div>
-            <div>${addOnsLabels[booking.addOns] ?? booking.addOns}</div>
+            <div>${addOnsDisplay}</div>
             <div>${booking.guests}</div>
             <div><span class="${statusClass(booking.bookingStatus)}">${translateStatus(booking.bookingStatus)}</span></div>
         `;
+        row.addEventListener('click', function() { openPanel(booking); });
         list.appendChild(row);
     });
 }
@@ -89,6 +96,27 @@ function filterBookings(status) {
             row.style.display = 'none';
         }
     });
+}
+
+// Åbn panel med booking data
+function openPanel(booking) {
+    document.getElementById('panelTitle').textContent = 'Anmodning fra ' + booking.companyName;
+    document.getElementById('panelStart').textContent = booking.startDate;
+    document.getElementById('panelEnd').textContent = booking.endDate;
+    document.getElementById('panelGuests').textContent = booking.guests;
+    document.getElementById('panelType').textContent = addOnsLabels[booking.addOns] ?? booking.addOns;
+    document.getElementById('panelName').textContent = booking.companyName;
+    document.getElementById('panelEmail').textContent = booking.email;
+    document.getElementById('panelDescription').textContent = booking.description;
+
+    document.getElementById('bookingPanel').classList.add('active');
+    document.getElementById('overlay').classList.add('active');
+}
+
+// Luk panel
+function closePanel() {
+    document.getElementById('bookingPanel').classList.remove('active');
+    document.getElementById('overlay').classList.remove('active');
 }
 
 fetchBookings();
