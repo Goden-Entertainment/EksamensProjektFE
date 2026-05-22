@@ -135,14 +135,6 @@ function openPanel(booking) {
     panel.classList.add('active');
     document.getElementById('overlay').classList.add('active');
 
-    //Når vi klikker AFVIS knap
-    document.querySelector('.btn-afvis').addEventListener('click', function () {
-        rejectRequest(booking)
-    });
-
-    document.querySelector('.btn-godkend').addEventListener('click', function () {
-        approveRequest(booking)
-    });
 }
 
 // Luk panel
@@ -194,31 +186,41 @@ async function saveBooking() {
     }
 }
 
-function approveRequest(booking) {
-    booking.bookingStatus = 'APPROVED';
+async function approveRequest() {
+    currentBooking.bookingStatus = 'APPROVED';
 
-    fetch(API_URL + "/booking/update/" + booking.bookingId, {
-        method: "PUT",
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(booking)
-    });
-}
-
-
-function rejectRequest(booking) {
-    booking.bookingStatus = 'REJECTED';
-
-    fetch(API_URL + "/booking/update/" + booking.bookingId, {
+    const response = await fetch(API_URL + "/booking/update/" + currentBooking.bookingId, {
         method: "PUT",
         headers: {
             'Authorization': `Bearer ${token}`,
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(booking)
+        body: JSON.stringify(currentBooking)
     });
+
+    if(response.ok){
+        closePanel();
+        fetchBookings();
+    }
+}
+
+
+async function rejectRequest() {
+    currentBooking.bookingStatus = 'REJECTED';
+
+    const response = await fetch(API_URL + "/booking/update/" + currentBooking.bookingId, {
+        method: "PUT",
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(currentBooking)
+    });
+
+    if(response.ok){
+        closePanel();
+        fetchBookings();
+    }
 }
 
 fetchBookings();
