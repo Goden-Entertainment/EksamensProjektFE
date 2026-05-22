@@ -55,9 +55,30 @@
             </div>
         </div>
 
-        <div class="block-form">
-            <h3>Bloker Datoer</h3>
-        </div>
+        <form id="Block-form">
+            <div class="block-form">
+                <h3>Bloker Datoer</h3>
+
+                <label for="startDate"> start dato </label>
+                <input type="date" id="startDate" name="startDate" required>
+
+                <label for="endDate"> slut dato </label>
+                <input type="date" id="endDate" name="endDate" required>
+            </div>
+
+
+            //FÅ DENNE FUNKTIONALITET TIL AT VIRKE SÅ JEG KAN LAVE EN DROPDOWN.
+            //AMIN LINJE 48-58
+            <div class="panel-row">
+                <span>Grunden til blokeringen</span>
+                <span id="ReasonForBlock" class="view-value"></span>
+                <select id="Blocking" class="edit-field">
+                    <option value="Maintainence">vedligholdes</option>
+                    <option value="Private">privat</option>
+                </select>
+            </div>
+
+        </form>
     </div>
 
     <div class="calendar-legend">
