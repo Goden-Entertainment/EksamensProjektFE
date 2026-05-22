@@ -31,6 +31,7 @@ async function fetchBookings() {
     }
 
     bookings.forEach(function(booking) {
+        if(booking.bookingStatus === 'BLOCKED') return;
         const row = document.createElement('div');
         row.classList.add('table-row');
         row.dataset.status = booking.bookingStatus;
