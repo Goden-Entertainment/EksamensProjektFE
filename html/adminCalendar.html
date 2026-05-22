@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Kalender</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/calendar.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <p class="sidebar-label">Oversigt</p>
+    <a href="admin.html">Anmodninger</a>
+    <a href="kalender.html" class="active">Kalender</a>
+    <a href="history.html">Historik</a>
+    <a href="settings.html">Indstillinger</a>
+
+    <div class="sidebar-capacity">
+        <p class="sidebar-label">Kapacitet</p>
+        <p>20 senge</p>
+        <p>9 værelser</p>
+        <p>2 enkelt · 5 dobbelt · 2 m. 4 senge</p>
+    </div>
+
+    <div class="sidebar-today">
+        <p class="sidebar-label">I dag</p>
+        <p id="today-date"></p>
+    </div>
+</div>
+
+<div class="main">
+    <h1>Kalender</h1>
+
+    <div class="calendar-layout">
+
+
+        <div class="calendar">
+            <div class="calendar-header">
+                <button id="prev-month">‹</button>
+                <div id="month-year"></div>
+                <button id="next-month">›</button>
+            </div>
+            <div class="calendar-body">
+                <div class="calendar-weekdays">
+                    <div>Man</div>
+                    <div>Tir</div>
+                    <div>Ons</div>
+                    <div>Tor</div>
+                    <div>Fre</div>
+                    <div>Lør</div>
+                    <div>Søn</div>
+                </div>
+                <div class="calendar-dates"></div>
+            </div>
+        </div>
+
+        <div class="block-form">
+            <h3>Bloker Datoer</h3>
+        </div>
+    </div>
+
+    <div class="calendar-legend">
+        <div class="legend-item">
+            <div class="legend-dot" style="background:#e74c3c"></div>
+            <span>Booket</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-dot" style="background:#95a5a6"></div>
+            <span>Blokeret</span>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    document.getElementById('today-date').textContent = new Date().toLocaleDateString('da-DK', {
+        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+    });
+</script>
+<script src="../js/calendar.js" defer></script>
+</body>
+</html>

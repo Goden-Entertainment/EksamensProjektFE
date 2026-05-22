@@ -311,3 +311,8 @@ textarea.edit-field {
     margin-top: 8px;
     min-height: 18px;
 }
+.calendar-layout {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
