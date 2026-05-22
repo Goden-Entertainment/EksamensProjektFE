@@ -12,8 +12,9 @@ const addOnsLabels = {
     DM: "Dagsmøde"
 };
 
+const token = localStorage.getItem('token');
+
 async function fetchBookings() {
-    const token = localStorage.getItem('token');
     const res = await fetch(`${API_URL}/booking/all`, {
         headers: {
             'Authorization': `Bearer ${token}`
@@ -29,7 +30,7 @@ async function fetchBookings() {
         return;
     }
 
-    bookings.forEach(function(booking) {
+    bookings.forEach(function (booking) {
         const row = document.createElement('div');
         row.classList.add('table-row');
         row.dataset.status = booking.bookingStatus;
@@ -42,27 +43,29 @@ async function fetchBookings() {
             <div>${booking.guests}</div>
             <div><span class="${statusClass(booking.bookingStatus)}">${translateStatus(booking.bookingStatus)}</span></div>
         `;
-        row.addEventListener('click', function() { openPanel(booking); });
+        row.addEventListener('click', function () {
+            openPanel(booking);
+        });
         list.appendChild(row);
     });
 }
 
-function sortBookings(order){
+function sortBookings(order) {
     const list = document.getElementById('bookings-list')
     const rows = Array.from(list.querySelectorAll('.table-row'));
 
-    rows.sort(function (a, b){
+    rows.sort(function (a, b) {
         const dateA = new Date(a.dataset.date);
         const dateB = new Date(b.dataset.date);
 
-        if(order === 'newest'){
+        if (order === 'newest') {
             return dateB - dateA;
-        }else {
+        } else {
             return dateA - dateB;
         }
     });
 
-    rows.forEach(function (row){
+    rows.forEach(function (row) {
         list.appendChild(row);
     });
 }
@@ -87,7 +90,7 @@ function translateStatus(status) {
 
 function filterBookings(status) {
     const rows = document.querySelectorAll('.table-row');
-    rows.forEach(function(row) {
+    rows.forEach(function (row) {
         if (status === 'ALLE') {
             row.style.display = 'grid';
         } else if (row.dataset.status === status) {
@@ -97,6 +100,7 @@ function filterBookings(status) {
         }
     });
 }
+
 
 // Åbn panel med booking data
 function openPanel(booking) {
@@ -111,6 +115,15 @@ function openPanel(booking) {
 
     document.getElementById('bookingPanel').classList.add('active');
     document.getElementById('overlay').classList.add('active');
+
+    //Når vi klikker AFVIS knap
+    document.querySelector('.btn-afvis').addEventListener('click', function () {
+        rejectRequest(booking)
+    });
+
+    document.querySelector('.btn-godkend').addEventListener('click', function () {
+        approveRequest(booking)
+    });
 }
 
 // Luk panel
@@ -119,26 +132,53 @@ function closePanel() {
     document.getElementById('overlay').classList.remove('active');
 }
 
+function approveRequest(booking) {
+    booking.bookingStatus = 'APPROVED';
+
+    fetch(API_URL + "/booking/update/" + booking.bookingId, {
+        method: "PUT",
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(booking)
+    });
+}
+
+
+function rejectRequest(booking) {
+    booking.bookingStatus = 'REJECTED';
+
+    fetch(API_URL + "/booking/update/" + booking.bookingId, {
+        method: "PUT",
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(booking)
+    });
+}
+
 fetchBookings();
 
-alleBtn.addEventListener('click', function() {
+alleBtn.addEventListener('click', function () {
     filterBookings('ALLE');
 });
 
-afventerBtn.addEventListener('click', function() {
+afventerBtn.addEventListener('click', function () {
     filterBookings('PENDING');
 });
 
-godkendtBtn.addEventListener('click', function() {
+godkendtBtn.addEventListener('click', function () {
     filterBookings('APPROVED');
 });
 
-afvistBtn.addEventListener('click', function() {
+afvistBtn.addEventListener('click', function () {
     filterBookings('REJECTED');
 });
-newestBtn.addEventListener('click', function (){
+newestBtn.addEventListener('click', function () {
     sortBookings('newest');
 });
-oldestBtn.addEventListener('click', function (){
+oldestBtn.addEventListener('click', function () {
     sortBookings('oldest');
 });
