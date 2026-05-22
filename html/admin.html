@@ -21,26 +21,76 @@
 
     <div class="panel-section">
         <p class="panel-label">BOOKING-DETALJER</p>
-        <div class="panel-row"><span>Ankomst</span><span id="panelStart"></span></div>
-        <div class="panel-row"><span>Afrejse</span><span id="panelEnd"></span></div>
-        <div class="panel-row"><span>Antal personer</span><span id="panelGuests"></span></div>
-        <div class="panel-row"><span>Type</span><span id="panelType"></span></div>
+        <div class="panel-row">
+            <span>Ankomst</span>
+            <span id="panelStart" class="view-value"></span>
+            <input type="date" id="editStart" class="edit-field">
+        </div>
+        <div class="panel-row">
+            <span>Afrejse</span>
+            <span id="panelEnd" class="view-value"></span>
+            <input type="date" id="editEnd" class="edit-field">
+        </div>
+        <div class="panel-row">
+            <span>Antal personer</span>
+            <span id="panelGuests" class="view-value"></span>
+            <input type="number" id="editGuests" class="edit-field" min="1" max="20">
+        </div>
+        <div class="panel-row">
+            <span>Type</span>
+            <span id="panelType" class="view-value"></span>
+            <select id="editType" class="edit-field">
+                <option value="OMF">Overnatning med forplejning</option>
+                <option value="OUF">Overnatning uden forplejning</option>
+                <option value="DM">Dagsmøde</option>
+            </select>
+        </div>
+        <div class="panel-row">
+            <span>Status</span>
+            <span id="panelStatus" class="view-value"></span>
+            <select id="editStatus" class="edit-field">
+                <option value="PENDING">Afventer</option>
+                <option value="APPROVED">Godkendt</option>
+                <option value="REJECTED">Afvist</option>
+                <option value="CANCELLED">Annulleret</option>
+                <option value="BLOCKED">Blokeret</option>
+            </select>
+        </div>
     </div>
 
     <div class="panel-section">
         <p class="panel-label">KONTAKT</p>
-        <div class="panel-row"><span>Navn</span><span id="panelName"></span></div>
-        <div class="panel-row"><span>Email</span><span id="panelEmail"></span></div>
+        <div class="panel-row">
+            <span>Navn</span>
+            <span id="panelName" class="view-value"></span>
+            <input type="text" id="editName" class="edit-field">
+        </div>
+        <div class="panel-row">
+            <span>Email</span>
+            <span id="panelEmail" class="view-value"></span>
+            <input type="email" id="editEmail" class="edit-field">
+        </div>
+        <div class="panel-row">
+            <span>Telefon</span>
+            <span id="panelPhone" class="view-value"></span>
+            <input type="text" id="editPhone" class="edit-field">
+        </div>
     </div>
 
     <div class="panel-section">
         <p class="panel-label">BESKED</p>
-        <p id="panelDescription"></p>
+        <p id="panelDescription" class="view-value"></p>
+        <textarea id="editDescription" class="edit-field"></textarea>
     </div>
 
+    <p id="panelError" class="panel-error"></p>
+
     <div class="panel-actions">
-        <button class="btn-afvis" onclick="closePanel()">AFVIS</button>
-        <button class="btn-godkend">GODKEND</button>
+        <button class="btn-afvis view-action" onclick="closePanel()">AFVIS</button>
+        <button class="btn-godkend view-action">GODKEND</button>
+        <button class="btn-rediger view-action" onclick="toggleEdit()">REDIGER</button>
+        <button class="btn-annuller edit-action" onclick="toggleEdit()">ANNULLER</button>
+        <button class="btn-gem edit-action" onclick="saveBooking()">GEM</button>
     </div>
 </div>
 
