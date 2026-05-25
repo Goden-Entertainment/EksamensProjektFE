@@ -36,7 +36,11 @@ function expandDateRange(startDate, endDate) {
 async function fetchCalendarData() {
     try {
         //Henter Backend Booking objekter ned og omdanner til JS.
-        const res = await fetch(`${API_URL}/booking/all`)
+        const res = await fetch(`${API_URL}/booking/all`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
         const bookings = await res.json();
 
         //Tomme lister der bliver udfyldt.
@@ -113,6 +117,12 @@ async function renderCalendar(month, year) {
             day.classList.add('current-date');
         }
 
+        const cellDate = new Date(`${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`);
+
+        if(cellDate < today) {
+            day.classList.add('date-past');
+            day.dataset.type = "past";
+        }
 
         const key = toDateKey(i, month, year);
 
@@ -185,6 +195,9 @@ calendarDates.addEventListener('click', (e) => {
         alert('Denne dato er allerede booket.');
         return;
     }
+
+    if(type === 'past')
+        return;
 
     // Byg datostrengen i formatet yyyy-mm-dd
     const day = e.target.textContent.padStart(2, '0');

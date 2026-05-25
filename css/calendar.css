@@ -126,3 +126,8 @@ nav img {
     height: 40px;
     width: auto;
 }
+.date-past {
+    color: #ccc;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
