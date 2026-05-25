@@ -131,3 +131,58 @@ nav img {
     cursor: not-allowed;
     text-decoration: line-through;
 }
+
+.block-form {
+    background: white;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    min-width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.block-form h3 {
+    margin: 0 0 8px 0;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.block-form label {
+    font-size: 13px;
+    color: #555;
+}
+
+.block-form input[type="date"],
+.block-form select {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    background: #fafafa;
+    box-sizing: border-box;
+}
+
+.btn-bloker {
+    margin-top: 8px;
+    padding: 10px;
+    background: #7a1c1c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 3px;
+}
+
+.btn-bloker:hover {
+    background: #5e1515;
+}
+
+.block-error {
+    color: #c0392b;
+    font-size: 13px;
+    min-height: 18px;
+    margin: 0;
+}
