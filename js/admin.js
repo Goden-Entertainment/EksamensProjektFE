@@ -1,6 +1,5 @@
 const API_URL = 'http://localhost:8080';
 let currentBooking = null;
-const EMPTY_MESSAGE = 'Der er ingen anmodninger at vise i øjeblikket';
 const alleBtn = document.getElementById('btn-alle');
 const afventerBtn = document.getElementById('btn-afventer');
 const godkendtBtn = document.getElementById('btn-godkendt');
@@ -174,6 +173,12 @@ async function saveBooking() {
             body: JSON.stringify(body)
         });
 
+        if (res.status === 409) {
+            const message = await res.text();
+            showToast('overlapToast', message);
+            return;
+        }
+
         if (!res.ok) {
             document.getElementById('panelError').textContent = 'Kunne ikke gemme ændringerne. Prøv igen.';
             return;
@@ -198,12 +203,24 @@ async function approveRequest() {
         body: JSON.stringify(currentBooking)
     });
 
+    if (response.status === 409) {
+        const message = await response.text();
+        showToast('overlapToast', message);
+        return;
+    }
+
     if(response.ok){
         closePanel();
         fetchBookings();
     }
 }
 
+function showToast(toastId, message) {
+    const toastElement = document.getElementById(toastId);
+    document.getElementById(toastId + 'Message').textContent = message;
+    const toast = new bootstrap.Toast(toastElement);
+    toast.show();
+}
 
 async function rejectRequest() {
     currentBooking.bookingStatus = 'REJECTED';
