@@ -13,8 +13,9 @@ const addOnsLabels = {
     DM: "Dagsmøde"
 };
 
+const token = localStorage.getItem('token');
+
 async function fetchBookings() {
-    const token = localStorage.getItem('token');
     const res = await fetch(`${API_URL}/booking/all`, {
         headers: {
             'Authorization': `Bearer ${token}`
@@ -44,27 +45,29 @@ async function fetchBookings() {
             <div>${booking.guests}</div>
             <div><span class="${statusClass(booking.bookingStatus)}">${translateStatus(booking.bookingStatus)}</span></div>
         `;
-        row.addEventListener('click', function() { openPanel(booking); });
+        row.addEventListener('click', function () {
+            openPanel(booking);
+        });
         list.appendChild(row);
     });
 }
 
-function sortBookings(order){
+function sortBookings(order) {
     const list = document.getElementById('bookings-list')
     const rows = Array.from(list.querySelectorAll('.table-row'));
 
-    rows.sort(function (a, b){
+    rows.sort(function (a, b) {
         const dateA = new Date(a.dataset.date);
         const dateB = new Date(b.dataset.date);
 
-        if(order === 'newest'){
+        if (order === 'newest') {
             return dateB - dateA;
-        }else {
+        } else {
             return dateA - dateB;
         }
     });
 
-    rows.forEach(function (row){
+    rows.forEach(function (row) {
         list.appendChild(row);
     });
 }
@@ -89,7 +92,7 @@ function translateStatus(status) {
 
 function filterBookings(status) {
     const rows = document.querySelectorAll('.table-row');
-    rows.forEach(function(row) {
+    rows.forEach(function (row) {
         if (status === 'ALLE') {
             row.style.display = 'grid';
         } else if (row.dataset.status === status) {
@@ -99,6 +102,7 @@ function filterBookings(status) {
         }
     });
 }
+
 
 // Åbn panel med booking data
 function openPanel(booking) {
@@ -130,6 +134,7 @@ function openPanel(booking) {
     panel.classList.remove('editing');
     panel.classList.add('active');
     document.getElementById('overlay').classList.add('active');
+
 }
 
 // Luk panel
@@ -178,6 +183,43 @@ async function saveBooking() {
         fetchBookings();
     } catch (e) {
         document.getElementById('panelError').textContent = 'Netværksfejl. Prøv igen.';
+    }
+}
+
+async function approveRequest() {
+    currentBooking.bookingStatus = 'APPROVED';
+
+    const response = await fetch(API_URL + "/booking/update/" + currentBooking.bookingId, {
+        method: "PUT",
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(currentBooking)
+    });
+
+    if(response.ok){
+        closePanel();
+        fetchBookings();
+    }
+}
+
+
+async function rejectRequest() {
+    currentBooking.bookingStatus = 'REJECTED';
+
+    const response = await fetch(API_URL + "/booking/update/" + currentBooking.bookingId, {
+        method: "PUT",
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(currentBooking)
+    });
+
+    if(response.ok){
+        closePanel();
+        fetchBookings();
     }
 }
 
