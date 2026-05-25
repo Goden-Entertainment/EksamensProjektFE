@@ -64,20 +64,17 @@
 
                 <label for="endDate">Slut Dato</label>
                 <input type="date" id="endDate" name="endDate" required>
-            </div>
 
-
-            <!--FÅ DENNE FUNKTIONALITET TIL AT VIRKE SÅ JEG KAN LAVE EN DROPDOWN.
-            AMIN LINJE 48-58 -->
-            <div class="panel-row">
-                <span>Grunden til blokeringen</span>
-                <span id="ReasonForBlock" class="view-value"></span>
-                <select id="Blocking" class="edit-field">
-                    <option value="Maintainence">vedligholdes</option>
-                    <option value="Private">privat</option>
+                <label for="Blocking">Grund til blokering</label>
+                <select id="Blocking" name="reason" required>
+                    <option value="">Vælg en grund</option>
+                    <option value="MAINTENANCE">Vedligeholdelse</option>
+                    <option value="PRIVATE">Privat</option>
                 </select>
-            </div>
 
+                <p id="block-error" class="block-error"></p>
+                <button type="submit" class="btn-bloker">Bloker Datoer</button>
+            </div>
         </form>
     </div>
 
