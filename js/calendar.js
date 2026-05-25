@@ -18,7 +18,8 @@ const months = [
 ];
 
 let bookedDates = new Set();
-let blockedDates = new Set();
+// Gemmer blokerede datoer som et Map i stedet for et Set, så vi kan slå bookingId op via dato når admin vil fjerne en blokering
+let blockedDates = new Map(); // dato → bookingId
 
 //Modtager en startDato og endDato, og returnerer alle dage imellem som individuelle datoer i et Set(List)
 function expandDateRange(startDate, endDate) {
@@ -45,7 +46,7 @@ async function fetchCalendarData() {
 
         //Tomme lister der bliver udfyldt.
         bookedDates = new Set();
-        blockedDates = new Set();
+        blockedDates = new Map(); // Nulstilles som Map så bookingId'er kan gemmes ved hver genindlæsning
 
         //Benytter de forskellige parameter siden vi har tilgået backend nu.
         bookings.forEach(function (booking) {
@@ -63,7 +64,7 @@ async function fetchCalendarData() {
             if (status === 'BLOCKED') {
                 const dates = expandDateRange(start, end);
                 dates.forEach(function (date) {
-                    blockedDates.add(date);
+                    blockedDates.set(date, booking.bookingId); // Gemmer datoen som nøgle og bookingId som værdi, så vi kan sende den korrekte DELETE-anmodning til backend
                 });
             }
         });
@@ -130,6 +131,7 @@ async function renderCalendar(month, year) {
         if (blockedDates.has(key)) {
             day.classList.add('date-blocked');
             day.dataset.type = 'blocked';
+            day.dataset.bookingId = blockedDates.get(key); // Sætter bookingId direkte på kalenderfeltet i DOM'en, så klik-handleren kan læse det uden at søge i Map'et igen
         } else if (bookedDates.has(key)) {
             day.classList.add('date-booked');
             day.dataset.type = 'booked';
@@ -180,15 +182,46 @@ nextMonthBtn.addEventListener('click', () => {
     renderCalendar(currentMonth, currentYear);
 });
 
-calendarDates.addEventListener('click', (e) => {
+// Tjekker om vi befinder os på admin-kalenderen ved at se om blokeringsformularen findes i DOM'en
+const isAdminCalendar = !!document.getElementById('Block-form');
+
+calendarDates.addEventListener('click', async (e) => {
     const target = e.target;
     if (!target.textContent) return;
 
     const type = target.dataset.type;
 
-    // Blokerede og bookede datoer kan ikke klikkes
     if (type === 'blocked') {
-        alert('Denne dato er blokeret af admin.');
+        if (isAdminCalendar) {
+            // Henter bookingId'et fra kalenderfeltet som blev sat under rendering
+            const bookingId = target.dataset.bookingId;
+            // Viser en bekræftelsesdialog så admin ikke fjerner en blokering ved et uheld
+            if (!confirm('Vil du fjerne blokeringen af denne dato?')) return;
+            try {
+                // Sender en DELETE-anmodning til backend med det specifikke bookingId
+                const res = await fetch(`${API_URL}/booking/delete/${bookingId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        // Vedlægger JWT-token fra localStorage så backend kan verificere at brugeren er admin
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                if (res.ok) {
+                    // Genindlæser kalenderen så den fjernede blokering forsvinder fra visningen
+                    renderCalendar(currentMonth, currentYear);
+                } else {
+                    // Viser en fejlbesked hvis backend returnerer en fejlkode
+                    alert('Kunne ikke fjerne blokeringen. Prøv igen.');
+                }
+            } catch (err) {
+                // Fanges hvis der slet ikke kan oprettes forbindelse til serveren
+                console.error('Fejl ved fjernelse af blokering:', err);
+                alert('Kunne ikke oprette forbindelse til serveren.');
+            }
+        } else {
+            // På bruger-kalenderen må blokerede datoer ikke kunne klikkes, så vi viser blot en besked
+            alert('Denne dato er blokeret af admin.');
+        }
         return;
     }
     if (type === 'booked') {
@@ -245,5 +278,65 @@ calendarDates.addEventListener('click', (e) => {
     }
 
     // // TODO: Udskift med din booking logik
-    // alert(`Du klikkede på ${target.textContent} ${months[currentMonth]} ${currentYear}`);
+    //alert(`Du klikkede på ${target.textContent} ${months[currentMonth]} ${currentYear}`);
 });
+
+// Henter blokeringsformularen fra DOM'en — den findes kun på adminCalendar.html
+const blockForm = document.getElementById('Block-form');
+// Tilføjer kun submit-lytteren hvis formularen faktisk findes på siden
+if (blockForm) {
+    blockForm.addEventListener('submit', async (e) => {
+        // Forhindrer siden i at genindlæse sig selv ved indsendelse, som er standardadfærd for HTML-formularer
+        e.preventDefault();
+        // Henter fejlbesked-elementet og rydder en eventuel tidligere fejl
+        const errorEl = document.getElementById('block-error');
+        errorEl.textContent = '';
+
+        // Læser de tre felter fra formularen
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+        const reason = document.getElementById('Blocking').value;
+
+        // Validerer at alle felter er udfyldt inden vi sender til backend
+        if (!startDate || !endDate || !reason) {
+            errorEl.textContent = 'Udfyld venligst alle felter.';
+            return;
+        }
+
+        // Validerer at slutdatoen ikke ligger før startdatoen
+        if (new Date(endDate) < new Date(startDate)) {
+            errorEl.textContent = 'Slutdato må ikke være før startdato.';
+            return;
+        }
+
+        try {
+            // Sender en POST-anmodning til backend med de valgte datoer og årsagen til blokeringen
+            const res = await fetch(`${API_URL}/booking/block`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', // Fortæller backend at vi sender JSON
+                    'Authorization': `Bearer ${localStorage.getItem('token')}` // Vedlægger JWT-token så backend kan verificere admin-adgang
+                },
+                body: JSON.stringify({ startDate, endDate, reason }) // Omdanner JavaScript-objektet til en JSON-streng
+            });
+
+            // Viser en fejlbesked hvis backend afviser anmodningen
+            if (!res.ok) {
+                errorEl.textContent = 'Noget gik galt. Prøv igen.';
+                return;
+            }
+
+            // Nulstiller formularen så felterne er tomme til næste blokering
+            blockForm.reset();
+            // Nulstiller de gemte datoer så kalendermarkeringerne forsvinder
+            selectedStart = null;
+            selectedEnd = null;
+            // Genindlæser kalenderen så de nyblokerede datoer vises med det samme
+            renderCalendar(currentMonth, currentYear);
+        } catch (err) {
+            // Fanges hvis der slet ikke kan oprettes forbindelse til serveren
+            console.error('Fejl ved blokering:', err);
+            errorEl.textContent = 'Kunne ikke oprette forbindelse til serveren.';
+        }
+    });
+}
