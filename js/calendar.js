@@ -19,7 +19,7 @@ const months = [
 
 let bookedDates = new Set();
 // Gemmer blokerede datoer som et Map i stedet for et Set, så vi kan slå bookingId op via dato når admin vil fjerne en blokering
-let blockedDates = new Map(); // dato → bookingId
+let blockedDates = new Map(); // dato → { bookingId, reason }
 
 //Modtager en startDato og endDato, og returnerer alle dage imellem som individuelle datoer i et Set(List)
 function expandDateRange(startDate, endDate) {
@@ -46,7 +46,7 @@ async function fetchCalendarData() {
 
         //Tomme lister der bliver udfyldt.
         bookedDates = new Set();
-        blockedDates = new Map(); // Nulstilles som Map så bookingId'er kan gemmes ved hver genindlæsning
+        blockedDates = new Map(); // Nulstilles som Map så bookingId og årsag kan gemmes ved hver genindlæsning
 
         //Benytter de forskellige parameter siden vi har tilgået backend nu.
         bookings.forEach(function (booking) {
@@ -64,7 +64,7 @@ async function fetchCalendarData() {
             if (status === 'BLOCKED') {
                 const dates = expandDateRange(start, end);
                 dates.forEach(function (date) {
-                    blockedDates.set(date, booking.bookingId); // Gemmer datoen som nøgle og bookingId som værdi, så vi kan sende den korrekte DELETE-anmodning til backend
+                    blockedDates.set(date, { bookingId: booking.bookingId, reason: booking.reason });
                 });
             }
         });
@@ -129,9 +129,14 @@ async function renderCalendar(month, year) {
 
         // tjek om datoen er blokeret eller booket og tilføj CSS klasse
         if (blockedDates.has(key)) {
+            const blockData = blockedDates.get(key);
             day.classList.add('date-blocked');
             day.dataset.type = 'blocked';
-            day.dataset.bookingId = blockedDates.get(key); // Sætter bookingId direkte på kalenderfeltet i DOM'en, så klik-handleren kan læse det uden at søge i Map'et igen
+            day.dataset.bookingId = blockData.bookingId; // Sætter bookingId direkte på kalenderfeltet i DOM'en, så klik-handleren kan læse det uden at søge i Map'et igen
+            if (isAdminCalendar) {
+                const reasonLabel = blockData.reason === 'PRIVATE' ? 'Privat' : 'Vedligeholdelse';
+                day.title = `Blokeret: ${reasonLabel}`;
+            }
         } else if (bookedDates.has(key)) {
             day.classList.add('date-booked');
             day.dataset.type = 'booked';
