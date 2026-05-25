@@ -431,7 +431,8 @@ body > .calendar {
 
 body > .calendar-legend {
     grid-column: 1;
-    grid-row: 5;
+    grid-row: 4;
+    align-self: end;
 }
 
 body > #bookingForm {

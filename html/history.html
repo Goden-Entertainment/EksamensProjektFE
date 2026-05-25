@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Historik</title>
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <p class="sidebar-label">Oversigt</p>
+    <a href="admin.html">Anmodninger</a>
+    <a href="adminCalendar.html">Kalender</a>
+    <a href="history.html" class="active">Historik</a>
+    <a href="settings.html">Indstillinger</a>
+
+    <div class="sidebar-capacity">
+        <p class="sidebar-label">Kapacitet</p>
+        <p>20 senge</p>
+        <p>9 værelser</p>
+        <p>2 enkelt · 5 dobbelt · 2 m. 4 senge</p>
+    </div>
+
+    <div class="sidebar-today">
+        <p class="sidebar-label">I dag</p>
+        <p id="today-date"></p>
+    </div>
+</div>
+
+<div class="main">
+    <h1>Historik</h1>
+    <p style="color: #666; margin-top: 10px;">Denne side er endnu ikke tilgængelig — den er under udvikling.</p>
+</div>
+
+<script>
+    document.getElementById('today-date').textContent = new Date().toLocaleDateString('da-DK', {
+        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+    });
+</script>
+</body>
+</html>
