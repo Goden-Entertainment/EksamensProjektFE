@@ -84,7 +84,7 @@ nav img {
     border: 1px solid #ddd;
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    padding: 28px 28px 32px 28px;
+    padding: 18px 22px 20px 22px;
     display: flex;
     flex-direction: column;
     gap: 0;
@@ -95,7 +95,7 @@ nav img {
     font-size: 13px;
     font-weight: 700;
     color: #1e1e1e;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
     font-family: 'Source Sans 3', Arial, sans-serif;
 }
 
@@ -109,8 +109,8 @@ nav img {
 .checkbox {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin: 0 0 24px 0;
+    gap: 8px;
+    margin: 0 0 14px 0;
 }
 
 .checkbox input[type="radio"] {
@@ -123,8 +123,8 @@ nav img {
     gap: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    padding: 12px;
-    font-size: 13px;
+    padding: 8px 10px;
+    font-size: 12px;
     line-height: 1.4;
     color: #1e1e1e;
     cursor: pointer;
@@ -165,25 +165,25 @@ nav img {
     font-size: 13px;
     font-weight: 700;
     color: #1e1e1e;
-    margin: 0 0 8px 0;
+    margin: 0 0 5px 0;
     font-family: 'Source Sans 3', Arial, sans-serif;
 }
 
 /* ── Section heading ── */
 .section-heading {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 400;
     color: #1e1e1e;
-    margin: 0 0 16px 0;
+    margin: 0 0 10px 0;
 }
 
 /* ── Form fields ── */
 .bookingForm {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 6px 16px;
-    margin-bottom: 16px;
+    gap: 4px 14px;
+    margin-bottom: 10px;
 }
 
 .bookingForm label {
@@ -197,11 +197,11 @@ nav img {
 
 .bookingForm input {
     width: 100%;
-    padding: 9px 12px;
+    padding: 7px 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-family: 'Source Sans 3', Arial, sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     color: #1e1e1e;
     background: #fff;
     outline: none;
@@ -218,7 +218,7 @@ nav img {
 
 /* ── Description ── */
 .description {
-    margin-bottom: 18px;
+    margin-bottom: 12px;
 }
 
 .description label {
@@ -232,12 +232,12 @@ nav img {
 
 .description textarea {
     width: 100%;
-    min-height: 100px;
-    padding: 9px 12px;
+    min-height: 68px;
+    padding: 7px 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-family: 'Source Sans 3', Arial, sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     color: #1e1e1e;
     resize: vertical;
     outline: none;
@@ -252,8 +252,8 @@ nav img {
 .submit-row {
     display: flex;
     align-items: center;
-    gap: 16px;
-    margin-top: 4px;
+    gap: 14px;
+    margin-top: 2px;
     flex-wrap: wrap;
 }
 
@@ -261,7 +261,7 @@ nav img {
     background: #8b1a1a;
     color: #ffffff;
     border: none;
-    padding: 13px 26px;
+    padding: 10px 22px;
     font-family: 'Source Sans 3', Arial, sans-serif;
     font-size: 13px;
     font-weight: 700;
@@ -289,8 +289,8 @@ nav img {
 .submit-phone a:hover { text-decoration: underline; }
 
 .submit-disclaimer {
-    margin-top: 12px;
-    font-size: 11.5px;
+    margin-top: 8px;
+    font-size: 11px;
     color: #888;
     line-height: 1.5;
     font-family: 'Source Sans 3', Arial, sans-serif;
