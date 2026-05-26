@@ -379,13 +379,13 @@ textarea.edit-field {
     padding: 8px 12px;
     border-radius: 8px;
     transition: background 0.2s, box-shadow 0.2s;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
     color: #555;
 }
 
 .notificationBtn:hover {
     background-color: #faf9f7;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 /* Badge counter */
@@ -410,9 +410,15 @@ textarea.edit-field {
 
 /* Subtle pulse animation */
 @keyframes bellPulse {
-    0%   { box-shadow: 0 0 0 0 rgba(122, 28, 28, 0.35); }
-    70%  { box-shadow: 0 0 0 8px rgba(122, 28, 28, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(122, 28, 28, 0); }
+    0% {
+        box-shadow: 0 0 0 0 rgba(122, 28, 28, 0.35);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(122, 28, 28, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(122, 28, 28, 0);
+    }
 }
 
 .notificationBtn.has-notifications {
@@ -430,7 +436,7 @@ textarea.edit-field {
     min-width: 260px;
     border: 1px solid #e0dbd4;
     border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
     z-index: 1000;
     overflow: hidden;
 }
@@ -480,6 +486,8 @@ textarea.edit-field {
 .notifications-content a:hover {
     background-color: #faf9f7;
     color: #7a1c1c;
+}
+
 .filter-buttons button.active {
     background: #6f0000;
     color: white;
