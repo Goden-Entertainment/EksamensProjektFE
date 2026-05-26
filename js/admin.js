@@ -242,24 +242,34 @@ async function rejectRequest() {
 
 fetchBookings();
 
-alleBtn.addEventListener('click', function () {
+alleBtn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-buttons button').forEach(btn => btn.classList.remove('active'));
+    this.classList.add('active');
     filterBookings('ALLE');
 });
 
-afventerBtn.addEventListener('click', function () {
+afventerBtn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-buttons button').forEach(btn => btn.classList.remove('active'));
+    this.classList.add('active');
     filterBookings('PENDING');
 });
 
-godkendtBtn.addEventListener('click', function () {
+godkendtBtn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-buttons button').forEach(btn => btn.classList.remove('active'));
+    this.classList.add('active');
     filterBookings('APPROVED');
 });
 
-afvistBtn.addEventListener('click', function () {
+afvistBtn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-buttons button').forEach(btn => btn.classList.remove('active'));
+    this.classList.add('active');
     filterBookings('REJECTED');
 });
-newestBtn.addEventListener('click', function () {
+
+newestBtn.addEventListener('click', function (){
     sortBookings('newest');
 });
-oldestBtn.addEventListener('click', function () {
+
+oldestBtn.addEventListener('click', function (){
     sortBookings('oldest');
 });

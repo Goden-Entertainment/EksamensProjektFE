@@ -5,7 +5,7 @@ body {
 
 /*Calendar container*/
 .calendar {
-    width: 350px;
+    width: 420px;
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -40,11 +40,12 @@ body {
 .calendar-weekdays div,
 .calendar-dates div {
     text-align: center;
-    padding: 10px;
+    padding: 14px 10px;
 }
 
 .calendar-weekdays {
-    background-color: #eaeef3;
+    background-color: #791313;
+    color: #fff;
 }
 
 .calendar-weekdays div {
@@ -91,7 +92,7 @@ body {
     gap: 8px;
     padding: 10px 12px;
     border-top: 1px solid #eaeef3;
-    width: 100%;
+    width: 350px;
     box-sizing: border-box;
 }
 

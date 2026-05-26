@@ -318,3 +318,8 @@ textarea.edit-field {
     gap: 40px;
     align-items: flex-start;
 }
+.filter-buttons button.active {
+    background: #6f0000;
+    color: white;
+    border-color: #6f0000;
+}
