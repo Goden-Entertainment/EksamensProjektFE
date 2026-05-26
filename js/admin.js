@@ -22,6 +22,14 @@ async function fetchBookings() {
     });
     const bookings = await res.json();
 
+    const pendingBookingRequestCount = bookings.filter(booking => booking.bookingStatus === 'PENDING').length;
+    const badge = document.getElementById('notifCount');
+    badge.textContent = pendingBookingRequestCount;
+    badge.style.display = pendingBookingRequestCount > 0 ? 'inline-block' : 'none';
+
+    //Update count in browser tab title
+    showNotificationCount(pendingBookingRequestCount);
+
     const list = document.getElementById('bookings-list');
     list.innerHTML = '';
 
@@ -49,6 +57,19 @@ async function fetchBookings() {
         });
         list.appendChild(row);
     });
+    updateNotificationDropdown(bookings);
+}
+
+//show new booking request in title.
+function showNotificationCount (count) {
+    //Looks for count
+    const pattern = /^\(\d+\)/;
+
+    if(count === 0 || pattern.test(document.title)) {
+        document.title = document.title.replace(pattern, count === 0 ? "" : "(" + count + ")");
+    }else {
+        document.title = "(" + count + ") " + document.title;
+    }
 }
 
 function sortBookings(order) {
@@ -191,6 +212,57 @@ async function saveBooking() {
     }
 }
 
+function updateNotificationDropdown(bookings) {
+    const dropdown = document.getElementById('notificationsDropdown');
+    dropdown.querySelectorAll('.notification-item').forEach(el => el.remove());
+    bookings.filter(b => b.bookingStatus === 'PENDING' && !getReadIds().includes(b.bookingId)).forEach(function(booking) {
+        if (booking.bookingStatus === 'BLOCKED') return;
+
+        const item = document.createElement('a');
+        item.classList.add('notification-item');
+        item.href = '#';
+        item.dataset.bookingId = booking.bookingId;
+        item.textContent = `${booking.companyName} — ${booking.startDate}`;
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            markAsRead(booking.bookingId);
+            item.remove();
+            updateBadge();
+            openPanel(booking);
+        });
+
+        dropdown.appendChild(item);
+    });
+    updateBadge();
+}
+
+function getReadIds() {
+    return JSON.parse(localStorage.getItem('readBookingIds') || '[]');
+}
+
+function markAsRead(bookingId) {
+    const readIds = getReadIds();
+    if (!readIds.includes(bookingId)) {
+        readIds.push(bookingId);
+        localStorage.setItem('readBookingIds', JSON.stringify(readIds));
+    }
+}
+
+function updateBadge() {
+    const count = document.querySelectorAll('.notification-item').length;
+    const badge = document.getElementById('notifCount');
+    const btn = document.querySelector('.notificationBtn');
+
+    badge.textContent = count;
+    badge.style.display = count > 0 ? 'inline-block' : 'none';
+
+    if (count > 0) {
+        btn.classList.add('has-notifications');
+    } else {
+        btn.classList.remove('has-notifications');
+    }
+}
+
 async function approveRequest() {
     currentBooking.bookingStatus = 'APPROVED';
 
@@ -240,7 +312,7 @@ async function rejectRequest() {
     }
 }
 
-fetchBookings();
+ fetchBookings();
 
 alleBtn.addEventListener('click', function () {
     filterBookings('ALLE');
@@ -262,4 +334,21 @@ newestBtn.addEventListener('click', function () {
 });
 oldestBtn.addEventListener('click', function () {
     sortBookings('oldest');
+});
+
+document.getElementById('markAllReadBtn').addEventListener('click', function () {
+    document.querySelectorAll('.notification-item').forEach(element => {
+        markAsRead(element.dataset.bookingId);
+        element.remove();
+    });
+    updateBadge();
+});
+
+document.querySelector('.notificationBtn').addEventListener('click', function (e) {
+    e.stopPropagation();
+    document.getElementById('notificationsDropdown').classList.toggle('open');
+});
+
+document.addEventListener('click', function () {
+    document.getElementById('notificationsDropdown').classList.remove('open');
 });

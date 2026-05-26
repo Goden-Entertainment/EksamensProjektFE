@@ -6,19 +6,23 @@ body {
     min-height: 100vh;
     padding: 0;
 }
+
 h1 {
     font-size: 28px;
     font-weight: normal;
 }
+
 h5 {
     font-weight: normal;
     color: #666;
     margin-bottom: 20px;
 }
+
 .main {
     padding: 40px;
     flex: 1;
 }
+
 .sidebar {
     width: 200px;
     background-color: white;
@@ -27,6 +31,7 @@ h5 {
     flex-shrink: 0;
     min-height: 100vh;
 }
+
 .sidebar-label {
     font-size: 11px;
     text-transform: uppercase;
@@ -35,6 +40,7 @@ h5 {
     margin-bottom: 16px;
     font-weight: bold;
 }
+
 .sidebar a {
     display: block;
     color: #333;
@@ -43,36 +49,44 @@ h5 {
     margin-bottom: 12px;
     padding: 4px 0;
 }
+
 .sidebar a:hover {
     color: #7a1c1c;
 }
+
 .sidebar a.active {
     color: #7a1c1c;
     font-weight: bold;
 }
+
 .sidebar-capacity {
     margin-top: 40px;
     border-top: 1px solid #e0dbd4;
     padding-top: 20px;
 }
+
 .sidebar-capacity p {
     font-size: 13px;
     color: #333;
     margin-bottom: 6px;
 }
+
 .sidebar-today {
     margin-top: 24px;
     border-top: 1px solid #e0dbd4;
     padding-top: 20px;
 }
+
 .sidebar-today p {
     font-size: 13px;
     color: #333;
     margin-bottom: 6px;
 }
+
 .filter-buttons {
     margin-top: 20px;
 }
+
 .filter-buttons button {
     padding: 8px 16px;
     border: 1px solid #ccc;
@@ -81,9 +95,11 @@ h5 {
     font-size: 13px;
     border-radius: 4px;
 }
+
 .filter-buttons button:hover {
     background: #eee;
 }
+
 .table-header {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -95,6 +111,7 @@ h5 {
     color: #888;
     margin-top: 20px;
 }
+
 .table-row {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -102,10 +119,12 @@ h5 {
     padding: 14px 10px;
     border-bottom: 1px solid #e0dbd4;
 }
+
 .table-row:hover {
     background: #faf9f7;
     cursor: pointer;
 }
+
 .status-afventer {
     background-color: #fdf0ef;
     color: #c0392b;
@@ -114,6 +133,7 @@ h5 {
     font-size: 12px;
     font-weight: bold;
 }
+
 .status-godkendt {
     background-color: #edf7f1;
     color: #2e7d4f;
@@ -122,6 +142,7 @@ h5 {
     font-size: 12px;
     font-weight: bold;
 }
+
 /* Overlay */
 .overlay {
     display: none;
@@ -150,7 +171,7 @@ h5 {
     z-index: 1000;
     padding: 30px;
     overflow-y: auto;
-    box-shadow: -4px 0 12px rgba(0,0,0,0.15);
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.15);
 }
 
 .booking-panel.active {
@@ -223,6 +244,7 @@ h5 {
 .table-row:hover {
     background-color: #f5f5f5;
 }
+
 .status-afvist {
     background-color: #f0f0f0;
     color: #555;
@@ -231,6 +253,7 @@ h5 {
     font-size: 12px;
     font-weight: bold;
 }
+
 .sort-buttons {
     margin-top: 8px;
 }
@@ -258,6 +281,7 @@ h5 {
 .booking-panel.editing .view-value {
     display: none;
 }
+
 .booking-panel.editing .edit-field {
     display: block;
     width: 55%;
@@ -269,6 +293,7 @@ h5 {
     background: #fafafa;
     box-sizing: border-box;
 }
+
 textarea.edit-field {
     width: 100%;
     min-height: 80px;
@@ -279,9 +304,11 @@ textarea.edit-field {
 .edit-action {
     display: none;
 }
+
 .booking-panel.editing .view-action {
     display: none;
 }
+
 .booking-panel.editing .edit-action {
     display: block;
     flex: 1;
@@ -297,11 +324,13 @@ textarea.edit-field {
     color: #2c5f2e;
     cursor: pointer;
 }
+
 .btn-gem {
     background: #2c5f2e;
     color: white;
     border: none;
 }
+
 .btn-annuller {
     border: 1px solid #ccc;
     background: white;
@@ -313,8 +342,142 @@ textarea.edit-field {
     margin-top: 8px;
     min-height: 18px;
 }
+
 .calendar-layout {
     display: flex;
     gap: 40px;
     align-items: flex-start;
+}
+
+/* Notification container */
+.notifications {
+    position: fixed;
+    top: 20px;
+    right: 60px;
+    display: inline-block;
+    z-index: 500;
+}
+
+/* Invisible bridge to prevent gap between button and dropdown */
+.notifications::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    height: 10px;
+    background: transparent;
+}
+
+/* Bell button */
+.notificationBtn {
+    position: relative;
+    background: white;
+    border: 1px solid #e0dbd4;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    color: #555;
+}
+
+.notificationBtn:hover {
+    background-color: #faf9f7;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+/* Badge counter */
+.notif-count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background-color: #7a1c1c;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    border: 2px solid white;
+    line-height: 1;
+}
+
+/* Subtle pulse animation */
+@keyframes bellPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(122, 28, 28, 0.35); }
+    70%  { box-shadow: 0 0 0 8px rgba(122, 28, 28, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(122, 28, 28, 0); }
+}
+
+.notificationBtn.has-notifications {
+    animation: bellPulse 2s ease-out infinite;
+    border-color: #c0392b;
+}
+
+/* Dropdown panel */
+.notifications-content {
+    display: none;
+    position: absolute;
+    top: calc(100% + 1px); /* flush, no gap */
+    right: 0;
+    background-color: #fff;
+    min-width: 260px;
+    border: 1px solid #e0dbd4;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+/* Open state via JS click toggle */
+.notifications-content.open {
+    display: block;
+}
+
+/* Dropdown header / mark-all button */
+#markAllReadBtn {
+    display: block;
+    width: 100%;
+    padding: 10px 16px;
+    background: #f7f5f2;
+    border: none;
+    border-bottom: 1px solid #e0dbd4;
+    text-align: left;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #888;
+    cursor: pointer;
+}
+
+#markAllReadBtn:hover {
+    background: #efede9;
+    color: #555;
+}
+
+/* Individual notification items */
+.notifications-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 13px;
+    border-bottom: 1px solid #f0ece6;
+    transition: background 0.15s;
+}
+
+.notifications-content a:last-child {
+    border-bottom: none;
+}
+
+.notifications-content a:hover {
+    background-color: #faf9f7;
+    color: #7a1c1c;
 }
