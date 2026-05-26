@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <title>🐣 Du fandt det!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #f0a500;
+      --dark: #0a0a0f;
+      --red: #cc0000;
+      --green: #00ff41;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--dark);
+      color: var(--green);
+      font-family: 'VT323', monospace;
+      font-size: 20px;
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
+
+    /* Scanline effect */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: repeating-linear-gradient(
+              0deg,
+              transparent,
+              transparent 2px,
+              rgba(0,0,0,0.15) 2px,
+              rgba(0,0,0,0.15) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 60px 20px 20px;
+      position: relative;
+    }
+
+    .glitch {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(20px, 4vw, 40px);
+      color: var(--gold);
+      text-shadow:
+              2px 0 var(--red),
+              -2px 0 #00eeff;
+      animation: glitch 2s infinite;
+      line-height: 1.4;
+    }
+
+    @keyframes glitch {
+      0%, 90%, 100% { text-shadow: 2px 0 var(--red), -2px 0 #00eeff; transform: translate(0); }
+      92% { text-shadow: -3px 0 var(--red), 3px 0 #00eeff; transform: translate(-2px, 1px); }
+      94% { text-shadow: 3px 0 var(--red), -3px 0 #00eeff; transform: translate(2px, -1px); }
+      96% { text-shadow: -2px 0 var(--red), 2px 0 #00eeff; transform: translate(0); }
+    }
+
+    .subtitle {
+      color: #888;
+      font-size: 18px;
+      margin-top: 10px;
+      letter-spacing: 3px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Cards */
+    .card {
+      border: 1px solid var(--green);
+      padding: 24px;
+      margin: 20px 0;
+      position: relative;
+      background: rgba(0, 255, 65, 0.03);
+      transition: background 0.2s;
+    }
+
+    .card:hover {
+      background: rgba(0, 255, 65, 0.07);
+    }
+
+    .card::before {
+      content: attr(data-label);
+      position: absolute;
+      top: -12px;
+      left: 16px;
+      background: var(--dark);
+      padding: 0 8px;
+      color: var(--gold);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+    }
+
+    .card h2 {
+      color: var(--gold);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .card p {
+      line-height: 1.6;
+      color: #aaffaa;
+      font-size: 20px;
+    }
+
+    /* WoW section */
+    .wow-section {
+      border-color: var(--gold);
+      background: rgba(240, 165, 0, 0.04);
+    }
+
+    .wow-section::before { color: var(--green); }
+
+    .auction-log {
+      font-family: 'VT323', monospace;
+      font-size: 18px;
+      background: #0d0d00;
+      border: 1px solid #444400;
+      padding: 16px;
+      margin-top: 14px;
+      line-height: 1.8;
+    }
+
+    .auction-log .timestamp { color: #888; }
+    .auction-log .char { color: #f0a500; font-weight: bold; }
+    .auction-log .item { color: #aaaaff; }
+    .auction-log .gold { color: #f0a500; }
+    .auction-log .system { color: #888; font-style: italic; }
+    .auction-log .profit { color: #00ff41; }
+
+    /* Goden logo */
+    .goden-logo {
+      text-align: center;
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(14px, 3vw, 28px);
+      color: var(--gold);
+      padding: 30px;
+      border: 2px solid var(--gold);
+      margin: 20px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .goden-logo::before {
+      content: '★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★';
+      position: absolute;
+      top: 8px; left: 0;
+      width: 200%;
+      color: rgba(240,165,0,0.2);
+      font-size: 12px;
+      animation: scroll 8s linear infinite;
+    }
+
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .goden-logo span {
+      display: block;
+      font-size: 11px;
+      color: #888;
+      margin-top: 8px;
+      font-family: 'VT323', monospace;
+      letter-spacing: 4px;
+    }
+
+    /* Blink cursor */
+    .blink {
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    /* Members list */
+    .members {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .member {
+      border: 1px solid #333;
+      padding: 12px;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .member:hover {
+      border-color: var(--gold);
+      transform: translateY(-3px);
+    }
+
+    .member .name {
+      color: var(--gold);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
+      margin-bottom: 6px;
+    }
+
+    .member .role {
+      color: #666;
+      font-size: 16px;
+    }
+
+    .member .emoji {
+      font-size: 28px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    /* Dog section */
+    .dog-art {
+      font-family: monospace;
+      font-size: 14px;
+      color: var(--green);
+      line-height: 1.3;
+      text-align: center;
+      padding: 10px;
+      white-space: pre;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #333;
+      font-size: 14px;
+      border-top: 1px solid #111;
+      margin-top: 40px;
+    }
+
+    .footer a {
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    .footer a:hover { color: var(--gold); }
+
+    /* Typewriter */
+    .typewriter {
+      overflow: hidden;
+      white-space: nowrap;
+      animation: typing 3s steps(40) 1s forwards;
+      width: 0;
+      display: inline-block;
+    }
+
+    @keyframes typing {
+      to { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="glitch">🐣 DU FANDT DET!</div>
+  <p class="subtitle">// HEMMELIGT OMRÅDE - ADGANG FORBUDT //</p>
+</div>
+
+<div class="container">
+
+  <!-- Goden Entertainment -->
+  <div class="goden-logo">
+    GODEN ENTERTAINMENT
+    <span>EST. MANGE ÅR SIDEN · STADIG IKKE PROFITABLE</span>
+  </div>
+
+  <!-- Members -->
+  <div class="card" data-label="// CREW //">
+    <h2>GODEN ENTERTAINMENT ROSTER</h2>
+    <div class="members">
+      <div class="member">
+        <span class="emoji">👑</span>
+        <div class="name">YADI</div>
+        <div class="role">CEO, CTO, CFO<br>og alt det andet</div>
+      </div>
+      <div class="member">
+        <span class="emoji">🎮</span>
+        <div class="name">GODEN</div>
+        <div class="role">Grundlægger<br>af ingenting</div>
+      </div>
+      <div class="member">
+        <span class="emoji">🐕</span>
+        <div class="name">RUNEDOG</div>
+        <div class="role">Chief Woof Officer<br>gøer på deadlines</div>
+      </div>
+      <div class="member">
+        <span class="emoji">🧔</span>
+        <div class="name">UNC</div>
+        <div class="role">Senior Advisor<br>"har set det før"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WoW Auction House -->
+  <div class="card wow-section" data-label="// WORLD OF WARCRAFT: CLASSIC //">
+    <h2>⚔️ IMPMASTER - AUCTION HOUSE GRIND ⚔️</h2>
+    <p>Dybt inde i Azeroth, mens andre krigere kæmpede mod drager og dæmoner, sad én mand stille ved Auction House i Stormwind og lavede mere guld end alle andre tilsammen.</p>
+    <div class="auction-log">
+      <span class="timestamp">[08:23:11]</span> <span class="char">Impmaster</span> poster <span class="item">[Linen Cloth] x200</span> for <span class="gold">12g 50s</span><br>
+      <span class="timestamp">[08:23:45]</span> <span class="system">Din auktion er solgt!</span> +<span class="gold">12g 50s</span> 🤑<br>
+      <span class="timestamp">[08:24:02]</span> <span class="char">Impmaster</span> poster <span class="item">[Linen Cloth] x200</span> for <span class="gold">12g 50s</span><br>
+      <span class="timestamp">[08:24:03]</span> <span class="char">Impmaster</span> poster <span class="item">[Linen Cloth] x200</span> for <span class="gold">12g 50s</span><br>
+      <span class="timestamp">[08:24:04]</span> <span class="char">Impmaster</span> poster <span class="item">[Linen Cloth] x200</span> for <span class="gold">12g 50s</span><br>
+      <span class="timestamp">[09:15:33]</span> <span class="system">Lokal spiller: "Impmaster er online igen..."</span><br>
+      <span class="timestamp">[09:15:34]</span> <span class="system">Lokal spiller: "Hele markedet er hans igen"</span><br>
+      <span class="timestamp">[09:15:35]</span> <span class="system">Lokal spiller: "Vi er fortabt"</span><br>
+      <span class="timestamp">[12:00:00]</span> <span class="profit">DAGENS PROFIT: +847g 32s 18c 📈</span><br>
+      <span class="timestamp">[12:00:01]</span> <span class="char">Impmaster</span>: <span class="system">"Grind never stops."</span>
+    </div>
+  </div>
+
+  <!-- RuneDog -->
+  <div class="card" data-label="// RUNEDOG //">
+    <h2>🐕 RUNEDOG - OFFICIEL MASKOT</h2>
+    <div class="dog-art">
+      / \__
+      (    @\___
+      /         O
+      /   (_____/
+      /_____/   U
+    </div>
+    <p style="margin-top:12px;">RuneDog er teamets officielle Chief Woof Officer og ansvarlig for at gø på alle vigtige møder. Han har aldrig leveret noget til tiden, men hans commit messages er altid <span style="color:var(--gold)">"woof"</span> og alle godkender dem alligevel.</p>
+  </div>
+
+  <!-- Secret message -->
+  <div class="card" data-label="// HEMLIG BESKED //">
+    <h2>📡 TRANSMISSION FRA GODEN HQ</h2>
+    <p>
+      Tillykke med at finde dette easter egg.<br><br>
+      Du er nu officielt <span style="color:var(--gold)">Goden Entertainment Insider</span>.<br><br>
+      Din belønning: <span style="color:var(--red)">ingenting</span>.<br><br>
+      Men du har god smag. Det tæller.<br><br>
+      <span class="blink">█</span>
+    </p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © Goden Entertainment · Alle rettigheder forbeholdes · <a href="admin.html">Tilbage til virkeligheden</a>
+</div>
+
+</body>
+</html>

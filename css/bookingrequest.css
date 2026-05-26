@@ -1,30 +1,41 @@
-/* ── Page-level layout ── */
-body {
-    font-family: 'Source Sans 3', Arial, sans-serif;
-    background-color: #f4f6f9;
+/* ── Nav ── */
+nav {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+nav img {
+    height: 40px;
+    width: auto;
+}
+
+/* ── Page wrapper ── */
+.page-wrapper {
+    max-width: 1200px;
     margin: 0 auto;
-    max-width: 1280px;
     padding: 100px 40px 60px 40px;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 420px;
-    column-gap: 36px;
-    align-items: start;
     box-sizing: border-box;
 }
 
-/* Page intro text block */
+/* ── Intro ── */
 .page-intro {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 36px 40px 0 40px;
+    margin-bottom: 32px;
 }
 
 .page-intro .eyebrow {
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #888;
+    font-size: 13px;
+    color: #555;
     margin-bottom: 8px;
+    font-family: 'Source Sans 3', Arial, sans-serif;
 }
 
 .page-intro h1 {
@@ -41,21 +52,33 @@ body {
     color: #555;
     max-width: 580px;
     line-height: 1.7;
-    margin: 0 0 32px 0;
+    margin: 0;
 }
 
-/* ── Two-column wrapper ── */
+/* ── Two-column layout ── */
 .booking-layout {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 40px 40px 40px;
     display: grid;
     grid-template-columns: 1fr 420px;
     gap: 36px;
     align-items: start;
 }
 
-/* ── Right panel – the form card ── */
+/* ── Left column ── */
+.calendar-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.calendar-note {
+    margin-top: 12px;
+    font-size: 12px;
+    color: #888;
+    line-height: 1.55;
+    font-family: 'Source Sans 3', Arial, sans-serif;
+}
+
+/* ── Right panel – form ── */
 #bookingForm {
     background: #ffffff;
     border: 1px solid #ddd;
@@ -67,22 +90,16 @@ body {
     gap: 0;
 }
 
-/* ── "Type af forespørgsel" label ── */
-#bookingForm .type-label {
+/* ── Type af forespørgsel ── */
+.type-label {
     font-size: 13px;
     font-weight: 700;
     color: #1e1e1e;
-    margin-bottom: 2px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    margin-bottom: 10px;
+    font-family: 'Source Sans 3', Arial, sans-serif;
 }
 
-#bookingForm .type-label .req {
-    color: #8b1a1a;
-}
-
-#bookingForm .type-label .hint {
+.type-label .hint {
     font-weight: 400;
     color: #888;
     font-size: 12px;
@@ -93,32 +110,28 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    margin: 10px 0 24px 0;
+    margin: 0 0 24px 0;
 }
 
-/* Hide the default radio inputs */
 .checkbox input[type="radio"] {
     display: none;
 }
 
-/* Each label becomes the card */
 .checkbox label {
     display: flex;
     align-items: flex-start;
     gap: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    padding: 12px 12px 12px 12px;
+    padding: 12px;
     font-size: 13px;
     line-height: 1.4;
     color: #1e1e1e;
     cursor: pointer;
     background: #ffffff;
     transition: border-color 0.15s, background 0.15s;
-    position: relative;
 }
 
-/* Custom checkbox box inside label */
 .checkbox label::before {
     content: '';
     width: 16px;
@@ -132,7 +145,6 @@ body {
     transition: background 0.15s, border-color 0.15s;
 }
 
-/* Checked state – golden card */
 .checkbox input[type="radio"]:checked + label {
     background: #f5e4c0;
     border-color: #c9943a;
@@ -147,7 +159,17 @@ body {
     background-position: center;
 }
 
-/* ── "Dine oplysninger" heading ── */
+/* ── Type-selector p inside .checkbox ── */
+.checkbox > p {
+    grid-column: 1 / -1;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1e1e1e;
+    margin: 0 0 8px 0;
+    font-family: 'Source Sans 3', Arial, sans-serif;
+}
+
+/* ── Section heading ── */
 .section-heading {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 18px;
@@ -156,7 +178,7 @@ body {
     margin: 0 0 16px 0;
 }
 
-/* ── The 2-column form fields ── */
+/* ── Form fields ── */
 .bookingForm {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -168,12 +190,9 @@ body {
     font-size: 12px;
     font-weight: 700;
     color: #1e1e1e;
-    align-self: end;
+    align-self: start;
     padding-bottom: 2px;
-}
-
-.bookingForm label .req {
-    color: #8b1a1a;
+    font-family: 'Source Sans 3', Arial, sans-serif;
 }
 
 .bookingForm input {
@@ -190,69 +209,14 @@ body {
     box-sizing: border-box;
 }
 
-.bookingForm input::placeholder {
-    color: #bbb;
-}
+.bookingForm input::placeholder { color: #bbb; }
+.bookingForm input:focus { border-color: #8b1a1a; }
 
-.bookingForm input:focus {
-    border-color: #8b1a1a;
-}
-
-/* Guests stepper */
-.guests-stepper {
-    display: flex;
-    align-items: stretch;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    overflow: hidden;
-    height: 38px;
-}
-
-.guests-stepper button {
-    width: 34px;
-    background: #f2f2f2;
-    border: none;
-    font-size: 18px;
-    color: #666;
-    cursor: pointer;
-    flex-shrink: 0;
-    transition: background 0.1s;
-}
-
-.guests-stepper button:hover {
-    background: #ddd;
-}
-
-.guests-stepper input[type="number"] {
-    flex: 1;
-    border: none;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 700;
-    font-family: 'Source Sans 3', Arial, sans-serif;
-    color: #1e1e1e;
-    outline: none;
-    -moz-appearance: textfield;
-}
-
-.guests-stepper input::-webkit-outer-spin-button,
-.guests-stepper input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-}
-
-.guests-note {
-    font-size: 11.5px;
-    color: #888;
-    margin-top: 3px;
-    grid-column: span 2;
-}
-
-/* Span full width for certain fields */
 .bookingForm .full-width {
     grid-column: span 2;
 }
 
-/* ── Description textarea ── */
+/* ── Description ── */
 .description {
     margin-bottom: 18px;
 }
@@ -263,6 +227,7 @@ body {
     font-weight: 700;
     color: #1e1e1e;
     margin-bottom: 5px;
+    font-family: 'Source Sans 3', Arial, sans-serif;
 }
 
 .description textarea {
@@ -280,15 +245,10 @@ body {
     transition: border-color 0.15s;
 }
 
-.description textarea::placeholder {
-    color: #bbb;
-}
+.description textarea::placeholder { color: #bbb; }
+.description textarea:focus { border-color: #8b1a1a; }
 
-.description textarea:focus {
-    border-color: #8b1a1a;
-}
-
-/* ── Submit button row ── */
+/* ── Submit row ── */
 .submit-row {
     display: flex;
     align-items: center;
@@ -312,13 +272,12 @@ body {
     transition: background 0.15s;
 }
 
-#submitButton:hover {
-    background: #6e1515;
-}
+#submitButton:hover { background: #6e1515; }
 
 .submit-phone {
     font-size: 13px;
     color: #888;
+    font-family: 'Source Sans 3', Arial, sans-serif;
 }
 
 .submit-phone a {
@@ -327,173 +286,20 @@ body {
     text-decoration: none;
 }
 
-.submit-phone a:hover {
-    text-decoration: underline;
-}
+.submit-phone a:hover { text-decoration: underline; }
 
 .submit-disclaimer {
     margin-top: 12px;
     font-size: 11.5px;
     color: #888;
     line-height: 1.5;
-}
-
-/* ── Left column wrapper (calendar + date bar + note) ── */
-.calendar-column {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-}
-
-/* ── Arrival / Departure / Nights bar ── */
-.date-summary-bar {
-    display: grid;
-    grid-template-columns: 1fr 1fr 120px;
-    border: 1px solid #ddd;
-    border-top: none;
-    background: #fff;
-    overflow: hidden;
-}
-
-.date-summary-bar .ds-cell {
-    padding: 12px 18px;
-    border-right: 1px solid #ddd;
-}
-
-.date-summary-bar .ds-cell:last-child {
-    border-right: none;
-}
-
-.date-summary-bar .ds-label {
-    font-size: 9.5px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    font-weight: 700;
-    color: #aaa;
-    margin-bottom: 3px;
-}
-
-.date-summary-bar .ds-value {
-    font-size: 14px;
-    color: #aaa;
-    font-style: italic;
-}
-
-.date-summary-bar .ds-value.set {
-    color: #1e1e1e;
-    font-style: normal;
-    font-weight: 600;
-}
-
-.calendar-note {
-    margin-top: 12px;
-    font-size: 12px;
-    color: #888;
-    line-height: 1.55;
-}
-
-/* ── Direct element grid placement (no wrapper divs in HTML) ── */
-body > h3,
-body > h1,
-body > p {
-    grid-column: 1 / -1;
-}
-
-body > h3 {
-    font-size: 13px;
-    font-weight: 400;
-    color: #555;
-    margin: 0 0 8px 0;
-    font-family: 'Source Sans 3', Arial, sans-serif;
-}
-
-body > h1 {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 42px;
-    font-weight: 400;
-    color: #1e1e1e;
-    margin: 0 0 14px 0;
-    line-height: 1.15;
-}
-
-body > p {
-    font-size: 15px;
-    color: #555;
-    max-width: 580px;
-    line-height: 1.7;
-    margin: 0 0 24px 0;
-}
-
-body > .calendar {
-    grid-column: 1;
-    grid-row: 4;
-}
-
-body > .calendar-legend {
-    grid-column: 1;
-    grid-row: 5;
-}
-
-body > #bookingForm {
-    grid-column: 2;
-    grid-row: 4 / 6;
-}
-
-/* ── Reorder form sections: type selector first ── */
-#bookingForm > .checkbox {
-    order: 1;
-    margin-top: 0;
-    margin-bottom: 20px;
-}
-
-#bookingForm > p {
-    order: 2;
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 18px;
-    font-weight: 400;
-    color: #1e1e1e;
-    margin: 0 0 16px 0;
-}
-
-#bookingForm > .bookingForm {
-    order: 3;
-}
-
-#bookingForm > .description {
-    order: 4;
-}
-
-#bookingForm > button,
-#bookingForm > .submit-row {
-    order: 5;
-}
-
-#bookingForm > .submit-disclaimer {
-    order: 6;
-}
-
-/* ── Type-selector label inside .checkbox ── */
-.checkbox > p {
-    grid-column: 1 / -1;
-    font-size: 13px;
-    font-weight: 700;
-    color: #1e1e1e;
-    margin: 0 0 8px 0;
     font-family: 'Source Sans 3', Arial, sans-serif;
 }
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
-    body {
+    .booking-layout {
         grid-template-columns: 1fr;
-        padding: 80px 20px 40px 20px;
-    }
-
-    body > .calendar,
-    body > .calendar-legend,
-    body > #bookingForm {
-        grid-column: 1;
-        grid-row: auto;
     }
 
     .checkbox {
@@ -503,4 +309,13 @@ body > #bookingForm {
     .bookingForm {
         grid-template-columns: 1fr;
     }
+
+    .bookingForm .full-width {
+        grid-column: span 1;
+    }
+}
+.field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }

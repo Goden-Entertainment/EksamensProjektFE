@@ -480,4 +480,8 @@ textarea.edit-field {
 .notifications-content a:hover {
     background-color: #faf9f7;
     color: #7a1c1c;
+.filter-buttons button.active {
+    background: #6f0000;
+    color: white;
+    border-color: #6f0000;
 }
