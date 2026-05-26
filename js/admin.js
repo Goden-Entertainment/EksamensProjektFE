@@ -362,3 +362,9 @@ document.querySelector('.notificationBtn').addEventListener('click', function (e
 document.addEventListener('click', function () {
     document.getElementById('notificationsDropdown').classList.remove('open');
 });
+
+function logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    window.location.href = '../index.html';
+}

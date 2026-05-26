@@ -1,10 +1,10 @@
 
 body {
+    padding-top: 80px;
     font-family: Arial, sans-serif;
     background-color: #f5f3ef;
     display: flex;
     min-height: 100vh;
-    padding: 0;
 }
 
 h1 {
@@ -351,9 +351,7 @@ textarea.edit-field {
 
 /* Notification container */
 .notifications {
-    position: fixed;
-    top: 20px;
-    right: 60px;
+    position: relative;
     display: inline-block;
     z-index: 500;
 }
@@ -484,4 +482,22 @@ textarea.edit-field {
     background: #6f0000;
     color: white;
     border-color: #6f0000;
+}}
+
+nav {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.10000);
+}
+nav img {
+    height: 40px;
+    width: auto;
 }

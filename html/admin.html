@@ -9,7 +9,25 @@
 </head>
 <body>
 
+<nav>
 
+    <img src="../picture/Kirsebrgarden_logo.jpg">
+
+    <div style="display:flex; align-items:center; gap:16px;">
+        <div class="notifications">
+            <button class="notificationBtn">🔔
+                <span class="notif-count" id="notifCount" style="display:none;">0</span>
+            </button>
+            <div class="notifications-content" id="notificationsDropdown">
+                <button id="markAllReadBtn">
+                    Mark all as read
+                </button>
+            </div>
+        </div>
+        <h6 onclick="logout()" style="cursor:pointer; margin:0;">Logud🔒</h6>
+    </div>
+
+</nav>
 <!-- Overlay baggrund -->
 <div id="overlay" class="overlay" onclick="closePanel()"></div>
 
@@ -153,17 +171,10 @@
 
 </div>
 
-<!--Notification tray-->
-<div class="notifications">
-    <button class="notificationBtn">🔔
-        <span class="notif-count" id="notifCount" style="display:none;">0</span>
-    </button>
-    <div class="notifications-content" id="notificationsDropdown">
-        <button id="markAllReadBtn">
-            Mark all as read
-        </button>
-    </div>
-</div>
+
+
+
+
 
 <!--toast for overlapping bookings-->
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
