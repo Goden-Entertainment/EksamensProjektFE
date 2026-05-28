@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8080';
+const API_URL = 'http://20.251.162.251/api';
 let currentBooking = null;
 const alleBtn = document.getElementById('btn-alle');
 const afventerBtn = document.getElementById('btn-afventer');
