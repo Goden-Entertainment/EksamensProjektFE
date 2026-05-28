@@ -1,4 +1,4 @@
-const API_URL = 'http://20.251.162.251/api';
+const API_URL = 'http://localhost:8080';
 let currentBooking = null;
 const alleBtn = document.getElementById('btn-alle');
 const afventerBtn = document.getElementById('btn-afventer');
@@ -313,6 +313,16 @@ async function rejectRequest() {
 }
 
  fetchBookings();
+
+if (token) {
+    const eventSource = new EventSource(`${API_URL}/booking/events?token=${token}`);
+    eventSource.onopen = () => console.log('SSE connection opened');
+    eventSource.onerror = (e) => console.error('SSE error', e);
+    eventSource.addEventListener('new-booking', () => {
+        console.log('SSE: new booking received');
+        fetchBookings();
+    });
+}
 
 alleBtn.addEventListener('click', function() {
     document.querySelectorAll('.filter-buttons button').forEach(btn => btn.classList.remove('active'));

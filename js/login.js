@@ -11,7 +11,7 @@ function login() {
     }
 
     // Send login request til backend
-    fetch("http://20.251.162.251/api/auth/login", {
+    fetch("http://localhost:8080/auth/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

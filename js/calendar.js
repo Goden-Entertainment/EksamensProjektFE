@@ -3,7 +3,7 @@ const monthYear = document.getElementById('month-year');
 const prevMonthBtn = document.getElementById('prev-month');
 const nextMonthBtn = document.getElementById('next-month');
 //DENNE API_URL SKAL ÆNDRES NÅR VI DEPLOYER
-const API_URL = 'http://20.251.162.251/api';
+const API_URL = 'http://localhost:8080';
 
 let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
